@@ -6,7 +6,7 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 21:14:07 by tkannane          #+#    #+#             */
-/*   Updated: 2024/07/23 16:54:59 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:42:06 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int ft_pixel(int r, int g, int b, int a)
 {
-    return (a << 24 | r << 16 | g << 8 | b);
+    return (r << 24 | g << 16 | b << 8 | a);
 }
 void display_map(t_cube *cube)
 {
@@ -129,9 +129,14 @@ int check_wall(t_cube *cube, float new_x, float new_y)
     
     x = floor(new_x / PIXEL_SIZE);
     y = floor( new_y / PIXEL_SIZE);
-    //printf("%d [%d]\n", x , y);
+
+    if (x >= MAP_WIDTH || y >= MAP_HEIGHT)
+        return (1);
     if (cube->map[y][x] == '1')
-        return (0);
+        {
+            //exit(0);
+            return (0);
+        }
     return (1);
 }
 int arround_player(t_cube *cube, float new_x, float new_y)
@@ -162,7 +167,7 @@ void update_player_place(t_cube *cube)
     float new_x = 0;
     float new_y = 0;
 	move_step = 0;
-   cube->player->rotation_angle += cube->player->palyer_rotation_speed * cube->player->l_r_directions;
+    cube->player->rotation_angle += cube->player->palyer_rotation_speed * cube->player->l_r_directions;
     cube->player->rotation_angle = ft_periodic(cube->player->rotation_angle);
 	move_step = cube->player->b_f_directions * cube->player->player_move_speed;
 	new_x = cube->player->x_position +  cos(cube->player->rotation_angle) * move_step;
@@ -271,9 +276,9 @@ void key_press(void *param)
              update_player_place(cube);
         }
         clear_image(cube->image);
-        display_map(cube);
-        draw_circle(cube->image, cube->player->x_position *0.2, cube->player->y_position * 0.2, cube->player->radius * 0.2, ft_pixel(135,206,235 ,1));
-        draw_line(cube);
+        // display_map(cube);
+        // draw_circle(cube->image, cube->player->x_position *0.2, cube->player->y_position * 0.2, cube->player->radius * 0.2, ft_pixel(135,206,235 ,1));
+        // draw_line(cube);
         cast_rays(cube);
         return ;
         
@@ -283,6 +288,7 @@ int32_t main(void)
 {
     t_cube cube;
     t_player player;
+    mlx_image_t *black_img;
 
     player.x_position = WIN_WIDTH / 2;
     player.y_position = WIN_HEIGHT / 2;
@@ -318,13 +324,20 @@ int32_t main(void)
         puts(mlx_strerror(mlx_errno));
         return (EXIT_FAILURE);
     }
+    black_img = mlx_new_image(cube.mlx_win, WIN_WIDTH, WIN_HEIGHT);
+    for (int y = 0; y < WIN_HEIGHT; y++)
+    {
+        for (int x = 0; x < WIN_WIDTH; x++)
+            mlx_put_pixel(black_img,  x, y, ft_pixel(0, 0, 0, 255));
+    }
+    mlx_image_to_window(cube.mlx_win, black_img, 0, 0);
 
     if (!(cube.image = mlx_new_image(cube.mlx_win, WIN_WIDTH, WIN_HEIGHT))) {
         mlx_close_window(cube.mlx_win);
         puts(mlx_strerror(mlx_errno));
         return (EXIT_FAILURE);
     }
-    display_map(&cube);
+    // display_map(&cube);
    // draw_circle(cube.image, player.x_position, player.y_position, player.radius, ft_pixel(135,206,235 ,1));
     //draw_line(&cube);
     //cast_rays(&cube);
@@ -334,7 +347,8 @@ int32_t main(void)
         return (EXIT_FAILURE);
     }
     mlx_loop_hook(cube.mlx_win, key_press, &cube);
-	mlx_loop_hook(cube.mlx_win, key_released, &cube);
+
+	//mlx_loop_hook(cube.mlx_win, key_released, &cube);
     mlx_loop(cube.mlx_win);
     mlx_terminate(cube.mlx_win);
 	

@@ -6,7 +6,7 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 21:14:04 by tkannane          #+#    #+#             */
-/*   Updated: 2024/07/23 17:00:31 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:27:36 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 #include <math.h>
 #include <limits.h>
 
+#define PIXEL_SIZE 70
 #define MAP_WIDTH 15
 #define MAP_HEIGHT 11
-#define WIN_WIDTH MAP_WIDTH * PIXEL_SIZE 
-#define WIN_HEIGHT  MAP_HEIGHT * PIXEL_SIZE 
-#define PIXEL_SIZE 32
+#define WIN_WIDTH 1500
+#define WIN_HEIGHT 1000
 #define MATH_PI 3.14159265358979323846
 #define FOV 60 * (MATH_PI / 180)
 #define NUM_OF_RAYS 480 / 10
@@ -71,5 +71,5 @@ float   ft_periodic(float angle);
 int     check_wall(t_cube *cube, float new_x, float new_y);
 void    draw_line(t_cube *cube);
 void    cast_rays(t_cube *cube);
-void    render_wall(t_ray *ray, t_cube *cube);
+void    render_wall(t_ray *ray, t_cube *cube, int i);
 //void    draw_ray_wall_hit(t_cube *cube,t_ray *ray);
