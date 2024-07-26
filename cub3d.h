@@ -1,19 +1,16 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   execution.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/18 21:14:04 by tkannane          #+#    #+#             */
-/*   Updated: 2024/07/24 13:27:36 by tkannane         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#ifndef CUB3D_H
+# define CUB3D_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include "../MLX42/include/MLX42/MLX42.h"
+# include "MLX42/include/MLX42/MLX42.h"
+# include "./parsing/get_next_line.h"
+# include "./libft/libft.h"
+# include <unistd.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <stdbool.h>
+# include <stdio.h>
+//# include <mlx.h>
+
 #include <math.h>
 #include <limits.h>
 
@@ -73,3 +70,42 @@ void    draw_line(t_cube *cube);
 void    cast_rays(t_cube *cube);
 void    render_wall(t_ray *ray, t_cube *cube, int i);
 //void    draw_ray_wall_hit(t_cube *cube,t_ray *ray);
+
+
+//PARSING
+typedef struct s_pars_info {
+	bool	north;
+	bool	south;
+	bool	east;
+	bool	weast;
+	bool	floor;
+	bool	ceiling;
+}	t_pars_info; 
+
+typedef struct s_map_data {
+	char		*f_color;
+	char		*c_color;
+	char		*no_path;
+	char		*so_path;
+	char		*we_path;
+	char		*ea_path;
+	char		**map;
+	char		**cub_map;
+	char		direction;
+	int			h;
+	int			w;
+	int			x;
+	int			y;
+	int			farr[3];
+	int			carr[3];
+	mlx_texture_t	textures[4]; // no_textures is 0 | south is 1 | east is 2 | west is 3;
+	t_pars_info	info;
+}	t_map_data;
+
+//ERRORS
+void    err_exit(char *s);
+void	ft_parsing(int argc, char **argv, t_map_data *data);
+
+
+
+#endif

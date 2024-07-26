@@ -1,4 +1,4 @@
-#include "execution.h"
+#include "../cub3d.h"
 #include <math.h>
 
 void render_wall(t_ray *ray, t_cube *cube ,int i)
