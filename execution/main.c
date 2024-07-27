@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 21:14:07 by tkannane          #+#    #+#             */
-/*   Updated: 2024/07/24 13:42:06 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/07/27 00:50:45 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "../cub3d.h"
 
 int ft_pixel(int r, int g, int b, int a)
 {
@@ -284,11 +284,20 @@ void key_press(void *param)
         
 }
 
-int32_t main(void)
+int32_t main(int argc, char **argv)
 {
     t_cube cube;
     t_player player;
     mlx_image_t *black_img;
+    //PARSING
+    t_map_data data;
+    data.no_path = NULL;
+	data.so_path = NULL;
+	data.ea_path = NULL;
+	data.we_path = NULL;
+	data.c_color = NULL;
+	data.f_color = NULL;
+    ft_parsing(argc, argv, &data);
 
     player.x_position = WIN_WIDTH / 2;
     player.y_position = WIN_HEIGHT / 2;
