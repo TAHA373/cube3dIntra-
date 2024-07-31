@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 10:12:49 by tkannane          #+#    #+#             */
-/*   Updated: 2024/07/27 00:04:29 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/07/31 17:30:29 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
 
 float ft_periodic(float angle) {
     while (angle < 0)
@@ -21,15 +22,18 @@ float ft_periodic(float angle) {
 }
 void draw_ray_wall_hit(t_cube *cube,int x1, int y1, int x2, int y2)
 {   
+    x1 *=0.2;
+     y1 *=0.2;
+     x2 *=0.2;
+     y2 *=0.2;
     int dx = abs(x2 - x1);
     int dy = abs(y2 - y1);
     int sx = x1 < x2 ? 1 : -1;
     int sy = y1 < y2 ? 1 : -1;
     int err = (dx > dy ? dx : -dy) / 2;
-    int e2;
-
+    int e2 = 0;
     while (1) {
-        mlx_put_pixel(cube->image, x1, y1,   ft_pixel(135,206,235 ,1));
+        mlx_put_pixel(cube->image, x1, y1,   ft_pixel(180,225,155 ,100));
         if (x1 == x2 && y1 == y2) break;
         e2 = err;
         if (e2 > -dx) { err -= dy; x1 += sx; }
@@ -76,11 +80,12 @@ void initialize_tray(t_ray *ray,float ray_angle)
         ray->ray_facing_left = 1;
     else
         ray->ray_facing_left = 0;
+    ray->distance = 0;
    
 }
 float distance_Between_Points(float p_x, float p_y, float hit_x, float hit_y)
 {
-    return (sqrt((hit_x - p_x) * (hit_x -p_x) + (hit_y - p_y) * (hit_y - p_y)));
+    return (sqrt(((hit_x - p_x) * (hit_x -p_x) )+( (hit_y - p_y) * (hit_y - p_y))));
 }
 float ft_cheking_up(t_ray *ray, float y)
 {
@@ -104,8 +109,8 @@ void check_for_H(t_ray *ray, float x_intercept, float y_intercept, t_cube *cube)
     // if (ray->ray_facing_up)
     //     next_hor_y--;
    int hit_wall = 0;
-    // Increment xstep and ystep until we find a wall
-    while (next_hor_x >= 0 && next_hor_y >= 0 && next_hor_x < WIN_WIDTH && next_hor_y < WIN_HEIGHT)
+
+    while (next_hor_x >= 0 && next_hor_y >= 0 && next_hor_x < cube->map_width * PIXEL_SIZE && next_hor_y < cube->map_height * PIXEL_SIZE)
     {
         if (!check_wall(cube, next_hor_x, ft_cheking_up(ray, next_hor_y)))
         {
@@ -127,7 +132,6 @@ void check_for_H(t_ray *ray, float x_intercept, float y_intercept, t_cube *cube)
             ray->distance = distance_Between_Points(cube->player->x_position,cube->player->y_position, ray->wall_Hit_x,ray->wall_Hit_y);
         else
             ray->distance = INT_MAX;
-    //printf("%d\n", hit_wall);
 }
 
 
@@ -142,15 +146,12 @@ void check_for_V(t_ray *ray, float x_intercept, float y_intercept, t_cube *cube)
     //     next_ver_x--;
    int hit_wall = 0;
     // Increment xstep and ystep until we find a wall
-    while (next_ver_x >= 0 && next_ver_y >= 0 && next_ver_x < WIN_WIDTH && next_ver_y < WIN_HEIGHT)
+    while (next_ver_x >= 0 && next_ver_y >= 0 && next_ver_x <= cube->map_width * PIXEL_SIZE && next_ver_y <= cube->map_height * PIXEL_SIZE)
     {
         if (!check_wall(cube, ft_cheking_left(ray , next_ver_x), next_ver_y))
         {
-            // if (ray->ray_facing_left)
-            //     next_ver_x--;
             ray->wall_Hit_x = next_ver_x;
             ray->wall_Hit_y = next_ver_y;
-           // draw_ray_wall_hit(cube, cube->player->x_position, cube->player->y_position, ray->wall_Hit_x, ray->wall_Hit_y);
             hit_wall = 1;
             break ;
         }
@@ -234,50 +235,66 @@ void vertical_ray(t_ray *ray, float ray_angle, t_cube *cube)
          ray->y_step *= 1;
     check_for_V(ray, x_intercept, y_intercept, cube);
 }
-void cast_the_ray(t_cube *cube, float ray_angle, int i)
+t_ray cast_the_ray(t_cube *cube, float ray_angle, int i)
 {
     t_ray ray_horizantal;
     t_ray ray_vertical;
     t_ray final_ray;
     horizantal_ray(&ray_horizantal, ray_angle, cube);
     vertical_ray(&ray_vertical, ray_angle, cube);
+    //initialize_tray(&final_ray, ray_angle);
+   // final_ray.distance = 0;
     if (ray_horizantal.distance < ray_vertical.distance)
         {
             final_ray.ray_angle = ray_horizantal.ray_angle;
             final_ray.wall_Hit_x = ray_horizantal.wall_Hit_x;
             final_ray.wall_Hit_y = ray_horizantal.wall_Hit_y;
             final_ray.distance = ray_horizantal.distance;
+            final_ray.ray_facing_down = ray_horizantal.ray_facing_down;
+            final_ray.ray_facing_up =  ray_horizantal.ray_facing_up;
+            final_ray.ray_facing_left = ray_horizantal.ray_facing_left;
+            final_ray.ray_facing_right = ray_horizantal.ray_facing_right;
+             final_ray.is_ver = 0;
         }
     else
         {
+            final_ray.ray_facing_down = ray_vertical.ray_facing_down;
+            final_ray.ray_facing_up =  ray_vertical.ray_facing_up;
+            final_ray.ray_facing_left = ray_vertical.ray_facing_left;
+            final_ray.ray_facing_right = ray_vertical.ray_facing_right;
             final_ray.ray_angle = ray_vertical.ray_angle;
             final_ray.wall_Hit_x = ray_vertical.wall_Hit_x;
             final_ray.wall_Hit_y = ray_vertical.wall_Hit_y;
             final_ray.distance = ray_vertical.distance;
+            final_ray.is_ver = 1;
         }
-    // draw_ray_wall_hit(cube, cube->player->x_position * 0.2, cube->player->y_position * 0.2,  final_ray.wall_Hit_x * 0.2,  final_ray.wall_Hit_y * 0.2);
     render_wall(&final_ray, cube, i);
     
+    return (final_ray);
         
 }
 void cast_rays(t_cube *cube)
 {
     float ray_angle;
     float limit_angle;
+    t_ray ray;
+
+
     int i = 0;
     
     ray_angle = cube->player->rotation_angle - (FOV / 2);
     ray_angle = ft_periodic(ray_angle);
       limit_angle = cube->player->rotation_angle + (FOV / 2);
      limit_angle = ft_periodic(limit_angle);
-     while ( i < (WIN_WIDTH))// ray_angle <= limit_angle 
+     while ( i < WIN_WIDTH)
       {
-            //draw_rays(ray_angle, cube);
-           //draw_rays(limit_angle, cube);
             ray_angle = ft_periodic(ray_angle);
-            cast_the_ray(cube, ray_angle, i);
+            ray = cast_the_ray(cube, ray_angle, i);
+            //draw_ray_wall_hit(cube, cube->player->x_position , cube->player->y_position ,  ray.wall_Hit_x ,  ray.wall_Hit_y );
             ray_angle +=  FOV / (WIN_WIDTH);
+             
             i++;
       }
+    //  display_map(cube);
    // draw_rays(limit_angle, cube);
 }

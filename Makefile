@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+         #
+#    By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 21:14:09 by tkannane          #+#    #+#              #
-#    Updated: 2024/07/27 00:25:26 by soel-bou         ###   ########.fr        #
+#    Updated: 2024/07/30 11:06:01 by tkannane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 cmd = cc
-cflags = -fsanitize=address -g -Wextra -Wall -Werror
+cflags = -fsanitize=address -g -Wextra -Wall -Werror -Ofast
 sources = ./execution/main.c ./execution/ray_casting.c ./execution/render_walls.c ./parsing/parsing.c ./parsing/get_next_line.c ./parsing/get_next_line_utils.c
 objs = $(sources:.c=.o)
-NAME = cube3D
+NAME = cub3D
 
 all: $(NAME)
 

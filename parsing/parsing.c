@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 23:24:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/07/27 00:52:03 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/07/31 21:41:46 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int gettexters(t_map_data *data, char *line, char *dir)
 	{
 		if(data->ea_path != NULL) //deja kayn!!
 			return (1);
-		data->ea_path = ft_strdup(file);	
+		data->ea_path = ft_strdup(file);	 
 	}
 	else if (!ft_strcmp(dir, "F"))
 	{
