@@ -14,9 +14,7 @@
 #include <math.h>
 #include <limits.h> 
 
-#define PIXEL_SIZE 64
-// #define MAP_WIDTH 40
-// #define MAP_HEIGHT 11
+#define PIXEL_SIZE 1024
 #define WIN_WIDTH 1500
 #define WIN_HEIGHT 1000
 #define MATH_PI 3.14159265358979323846
@@ -70,31 +68,33 @@ typedef struct s_player
     int       radius;
     int       l_r_directions;
     int       b_f_directions;
-    float   rotation_angle;
+    float       rotation_angle;
     int     player_move_speed;
     float   palyer_rotation_speed;
-    int offset_x;
-    int offset_y;
-    
+    int     offset_x;
+    int     offset_y;
+    float  key_a;
+    float  key_d;
 
 
 } t_player;
 
 typedef struct s_cube
 {
-    t_player    *player;
-    mlx_t       *mlx_win;
-    mlx_image_t *mini_map;
-    mlx_image_t *image;
-    char         **map;
-   mlx_texture_t  * test;
-    mlx_image_t *east;
-    mlx_image_t *west;
-    mlx_image_t *north;
-    mlx_image_t *south;
-	int			map_height;
-	int			map_width;
-    t_map_data *data;
+    t_player        *player;
+    mlx_t           *mlx_win;
+    mlx_image_t     *mini_map;
+    mlx_image_t     *image;
+    char            **map;
+    mlx_texture_t   *test;
+    mlx_image_t     *east;
+    mlx_image_t     *west;
+    mlx_image_t     *north;
+    mlx_image_t     *south;
+	int			    map_height;
+	int			    map_width;
+    t_map_data      *data;
+    
    mlx_texture_t	*texture[4];
 } t_cube;
 

@@ -1,8 +1,6 @@
 #include "../cub3d.h"
 
 
-
-
 void ft_getoff_x(t_cube *cube, t_ray *ray, int i) {
 
 (void)i;
@@ -10,11 +8,9 @@ void ft_getoff_x(t_cube *cube, t_ray *ray, int i) {
         cube->player->offset_x = (int)ray->wall_Hit_y % PIXEL_SIZE;
     else
         cube->player->offset_x  = (int)ray->wall_Hit_x % PIXEL_SIZE;
-   // printf("[x =%d] [i = %d]\n", cube->player->offset_x, i);
 }
 void render_wall(t_ray *ray, t_cube *cube ,int i)
 {
-    // printf("hit x = %d i = %d\n", (int)ray->wall_Hit_y, i);
     int wall_StripH;
     float rayDistance;
     float distance_project;
@@ -33,34 +29,28 @@ void render_wall(t_ray *ray, t_cube *cube ,int i)
     wall_top = (WIN_HEIGHT / 2) - (wall_StripH / 2);
     wall_bottom = (WIN_HEIGHT / 2) + (wall_StripH / 2);
 
-    // Ensure wall strip is within screen bounds
-    for(int y = 0; y <  wall_top; y++)
-         mlx_put_pixel(cube->image,i, y, ft_pixel(192, 148, 100, 255));
+
+    int y = -1;
+    //char **c_colors = ft_split(cube->data->c_color, ',');
+    while (++y <  wall_top)
+         mlx_put_pixel(cube->image,i, y, ft_pixel(cube->data->carr[0],cube->data->carr[1],cube->data->carr[2],255));
 
     if (wall_top < 0) wall_top = 0;
     if (wall_bottom >= WIN_HEIGHT) wall_bottom = WIN_HEIGHT - 1;
     ft_getoff_x(cube, ray, i);
-    for (int y = wall_top; y < wall_bottom; y++)
+    y = wall_top;
+    while (y < wall_bottom)
     {
         dis = y - WIN_HEIGHT / 2 + wall_StripH / 2;
         cube->player->offset_y = (dis) * ((float)PIXEL_SIZE / wall_StripH);
-        //printf("%d\n", cube->player->offset_y);
-            //int dis = y + (wall_StripH / 2) - (WIN_HEIGHT / 2);
-            //cube->player->offset_y = dis * ((float)PIXEL_SIZE / wall_StripH);
-        //    ft_draw_img(cube,i, y, ray);
 
         j = (cube->player->offset_x + cube->player->offset_y * PIXEL_SIZE) * 4;
-  //  printf("j = %d\n", j);// Assuming RGBA format
-    // Access pixel color
-    // if (img->pixels)
-    // {   
+   
         r = cube->east->pixels[j];
         g = cube->east->pixels[j + 1];
         b = cube->east->pixels[j + 2];
         a = cube->east->pixels[j + 3];
-    // }
-
-    // Draw the pixel to the destination image
+        
         if (ray->is_ver)
         {
             if (ray->ray_facing_left)
@@ -94,7 +84,24 @@ void render_wall(t_ray *ray, t_cube *cube ,int i)
                         a = cube->north->pixels[j + 3];
             }
         }
-          mlx_put_pixel(cube->image, i, y, ft_pixel(r, g, b, a));
+          mlx_put_pixel(cube->image, i, y, ft_pixel(r, g, b, a * exp(-0.00007 * ray->distance)));
+        y++;
+    }
+    y = wall_bottom;
+
+    char **f_colors;
+    f_colors = ft_split(cube->data->f_color, ',');
+    while (y <  WIN_HEIGHT)
+        {
+           mlx_put_pixel(cube->image, i, y, ft_pixel(ft_atoi(f_colors[0]),ft_atoi(f_colors[1]),ft_atoi(f_colors[2]), 5));
+                y++;
+        }
+          
+        }
+
+
+
+
         //    printf("kkk\n");
        // mlx_put_pixel(cube->image,i, y, ft_pixel(255, 255, 255, 255* exp(-0.00008 * ray->distance)));
         // if (ray->is_ver)
@@ -113,18 +120,3 @@ void render_wall(t_ray *ray, t_cube *cube ,int i)
         //         else
         //             mlx_put_pixel(cube->image,i, y, ft_pixel(234, 239, 44, 100));
         //     } // Drawing in white color for example * exp(-0.004 * ray->distance))
-    }
-    int y;
-    y = wall_bottom;
-
-    while (y <  WIN_HEIGHT)
-        {
-            mlx_put_pixel(cube->image,i, y, ft_pixel(192, 148, 100, 255));
-                y++;
-        }
-    // for(int y = wall_bottom; y <  WIN_HEIGHT; y++)
-          
-        }
-
-
-

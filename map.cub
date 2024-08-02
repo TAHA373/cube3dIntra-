@@ -8,9 +8,9 @@ SO  ./execution/3.png
 WE  ./execution/4.png
 
 
-F 225,0,0
+F 3,3,3
 
-C 225,30,0
+C 0,0,0
 
 
 

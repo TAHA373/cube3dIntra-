@@ -6,11 +6,12 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 21:14:07 by tkannane          #+#    #+#             */
-/*   Updated: 2024/07/31 20:46:28 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/02 20:33:26 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+#include <math.h>
 #include <stdio.h>
 
 int ft_pixel(int r, int g, int b, int a)
@@ -32,21 +33,10 @@ void display_map(t_cube *cube)
     while (i < cube->map_height)
     {
         j = 0;
-            // printf("1-%d\n", j);
-       
+        
         len = ft_strlen (cube->map[i]);
-        printf(">>%s\n", cube->map[i]);
         while (j < cube->map_width && j < len)
         {
-        printf(">>>%d >> %d\n",j, i);
-          //  printf("2-%d\n", j);
-        //   len = ft_strlen (cube->map[i]);
-        //   printf("[%d][%d]\n", i, j);
-        //     if (j >= len)
-        //         {
-        //             len = 0;
-        //             i++;
-        //             j = 0;  }
             if (cube->map[i][j] == '1')
                 color = ft_pixel(255, 255, 255, 255);
             else
@@ -74,47 +64,61 @@ void display_map(t_cube *cube)
 
 
 }
-// void display_map(t_cube *cube)
-// {
-//     int color;
-//     int i, j;
-//     int x, y;
-//     float scale = 0.2; // Scaling factor for the minimap
-//     int scaled_pixel_size = (int)(PIXEL_SIZE * scale);
+float	ft_scale_f(float prev)
+{
+	float	new;
 
-//     for (i = 0; i < MAP_HEIGHT; i++)
-//     {
-//         for (j = 0; j < MAP_WIDTH; j++)
-//         {
-//             if (cube->map[i][j] == '1')
-//                 color = ft_pixel(255, 255, 255, 255);
-//             else
-//                 color = ft_pixel(0, 0, 0, 255);
+	new = (prev * 20) / PIXEL_SIZE;
+	return (new);
+}
 
-//             // Draw the scaled tile with borders
-//             for (y = 0; y <= scaled_pixel_size; y++)
-//             {
-//                 for (x = 0; x <= scaled_pixel_size; x++)
-//                 {
-//                     int scaled_x = j * scaled_pixel_size + x;
-//                     int scaled_y = i * scaled_pixel_size + y;
+void    mini_map(t_cube *cube)
+{
+    float new_x_map;
+    float new_y_map;
+    int i , j;
+     i =0;
+     j = 0;
+    int x;
+    int y;
+    new_y_map = 0;
+    new_x_map = 0;
+    x = 0;
+    y = ft_scale_f(cube->player->y_position)  - 100 ;//100= mini_map_heigth / 2;
+    while (new_y_map < 200)
+    {
+        new_x_map = 0;
+        x = ft_scale_f(cube->player->x_position) - 100;
+        while (new_x_map < 200)
+        {
+            //printf("[%d] [%d]", i, j);
+            if (x >= 0 && y >= 0 && x < cube->map_width * 20 && y < cube->map_height * 20)
+            {
+                i = y / 20;
+                j = x / 20;
+               // printf("[%c]\n", cube->map[11][28]);
+                // if (j <  cube->map_width && i < cube->map_height)
+              //  printf("[i = %d j = %d]\n", i, j);
+            if (j < (int)ft_strlen (cube->map[i]))
+            {
+                if (cube->map[i][j] == '0' ||cube-> map[i][j] == ' ' )
+                mlx_put_pixel(cube->mini_map, new_x_map, new_y_map, ft_pixel(0, 0, 0, 255));
+            else
+                mlx_put_pixel(cube->mini_map, new_x_map, new_y_map, ft_pixel(255, 255, 255, 255));
+            }
+            else {
+                mlx_put_pixel(cube->mini_map, new_x_map, new_y_map,ft_pixel(95, 209, 23, 255));
+            }
+            }
+            
+            new_x_map++;
+            x++;
+        }
+        new_y_map++;
+        y++;
+    }
+}
 
-//                     // Determine the color for the pixel
-//                     if (x == 0 || y == 0 || x == scaled_pixel_size - 1  || y == scaled_pixel_size - 1)
-//                     {
-//                         // Border pixel
-//                         mlx_put_pixel(cube->image, scaled_x, scaled_y, ft_pixel(0, 0, 0, 255));
-//                     }
-//                     else
-//                     {
-//                         // Inner pixel
-//                         mlx_put_pixel(cube->image, scaled_x, scaled_y, color);
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
 
 void clear_image(mlx_image_t* image)
 {
@@ -132,12 +136,27 @@ void clear_image(mlx_image_t* image)
         y++;
     }
 }
-    
+    void clear_img_mini(mlx_image_t* image)
+{
+    int x = 0;
+    int y = 0;
+
+    while (y < 200)
+    {
+        x = 0;
+        while (x < 200)
+        {
+            mlx_put_pixel(image, x, y, ft_pixel(0, 0, 0, 0));
+            x++;
+        }
+        y++;
+    }
+}
 void ft_release(t_cube *cube)
 {
     cube->player->b_f_directions = 0;
 	cube->player->l_r_directions = 0;
-
+    cube->player->key_a = 0;
 }
 int check_wall(t_cube *cube, float new_x, float new_y)
 {
@@ -151,8 +170,6 @@ int check_wall(t_cube *cube, float new_x, float new_y)
     len = ft_strlen(cube->map[y]);
     if (x >= len)
         return (0);  
-    
-  printf("[ x = %d] [y = %d]\n", x , y);//|| cube->map[y][x] != 32
     if (cube->map[y][x] == '1' ||  cube->map[y][x] == ' ')
         {
             //exit(0);
@@ -193,7 +210,37 @@ void update_player_place(t_cube *cube)
 	move_step = cube->player->b_f_directions * cube->player->player_move_speed;
 	new_x = cube->player->x_position +  cos(cube->player->rotation_angle) * move_step;
 	new_y = cube->player->y_position +  sin(cube->player->rotation_angle) * move_step;
+    if (arround_player(cube, new_x, new_y))
+    {
+        cube->player->x_position = new_x;
+        cube->player->y_position = new_y;
+    }
+   ft_release(cube);
+}
+void update_player_place_left(t_cube *cube)
+{
+
+    float new_x = 0;
+    float new_y = 0;
+
+	new_x = cube->player->x_position +  cos(cube->player->rotation_angle - MATH_PI/2) * cube->player->player_move_speed;
+	new_y = cube->player->y_position +  sin(cube->player->rotation_angle - MATH_PI/2) * cube->player->player_move_speed;
     if (arround_player(cube, new_x, new_y)) //&&check_wall(cube, new_x, new_y)
+    {
+        cube->player->x_position = new_x;
+        cube->player->y_position = new_y;
+    }
+   ft_release(cube);
+}
+void update_player_place_rigth(t_cube *cube)
+{
+
+    float new_x = 0;
+    float new_y = 0;
+
+	new_x = cube->player->x_position +  cos(cube->player->rotation_angle + MATH_PI/2) * cube->player->player_move_speed;
+	new_y = cube->player->y_position +  sin(cube->player->rotation_angle + MATH_PI/2) * cube->player->player_move_speed;
+    if (arround_player(cube, new_x, new_y))
     {
         cube->player->x_position = new_x;
         cube->player->y_position = new_y;
@@ -275,14 +322,13 @@ void key_press(void *param)
 		{
                 mlx_close_window(cube->mlx_win);
         }
-        if (mlx_is_key_down(cube->mlx_win, MLX_KEY_UP))
+        if (mlx_is_key_down(cube->mlx_win, MLX_KEY_UP) || mlx_is_key_down(cube->mlx_win, MLX_KEY_W))
         {
 			    cube->player->b_f_directions = 1;
 			    update_player_place(cube);
         }
         if (mlx_is_key_down(cube->mlx_win, MLX_KEY_DOWN))
         {
-            //printf("gg\n");
 			cube->player->b_f_directions = -1;
 			 update_player_place(cube);
         }
@@ -296,9 +342,21 @@ void key_press(void *param)
             cube->player->l_r_directions = 1;
              update_player_place(cube);
         }
+        if (mlx_is_key_down(cube->mlx_win, MLX_KEY_A))
+        {
+
+                update_player_place_left(cube);
+        }
+        if (mlx_is_key_down(cube->mlx_win, MLX_KEY_D))
+        {
+            update_player_place_rigth(cube);
+        }
         clear_image(cube->image);
-        display_map(cube);
-        //draw_circle(cube->image, cube->player->x_position *0.2, cube->player->y_position * 0.2, cube->player->radius * 0.2, ft_pixel(255,255,255,255 ));
+       // display_map(cube);
+        clear_img_mini(cube->mini_map);
+        mini_map(cube);
+        draw_circle(cube->mini_map, 100, 100, cube->player->radius, ft_pixel(95, 209, 23, 255) );
+        //draw_circle(cube->mini_map, cube->player->x_position *0.2, cube->player->y_position * 0.2, cube->player->radius * 0.2, ft_pixel(255,255,255,255 ));
         // draw_line(cube);
         cast_rays(cube);
         return ;
@@ -309,7 +367,6 @@ int main(int argc, char **argv)
 {
     t_cube cube;
     t_player player;
-   // mlx_image_t *black_img;
     //PARSING
     t_map_data data;
     data.no_path = NULL;
@@ -336,33 +393,14 @@ int main(int argc, char **argv)
     player.l_r_directions = 0;
     player.b_f_directions = 0;
    //player.rotation_angle = MATH_PI / 2;
-    player.player_move_speed = 6;
+    player.player_move_speed = 180;
     player.palyer_rotation_speed = 2 * (MATH_PI / 180);
 
     cube.player = &player;
-    //color = 0;
     int i = 0;
-    // cube.map = malloc(sizeof(char *) * MAP_HEIGHT);
-    // while  (i < MAP_HEIGHT)
-    // {
-    //     cube.map[i] = malloc(sizeof(char ) * MAP_WIDTH);
-    //     i++;
-    // }
-    // i = 0;
-    // cube.map[0] = "111111111111111";
-    // cube.map[1] = "100000000000101";
-    // cube.map[2] = "100000000000101";
-    // cube.map[3] = "100000000000101";
-    // cube.map[4] = "100000000000101";
-    // cube.map[5] = "100000000111101";
-    // cube.map[6] = "100000000100001";
-    // cube.map[7] = "100000000100001";
-    // cube.map[8] = "100000000000001";
-    // cube.map[9] = "111111000001111";
-    // cube.map[10] = "111111111111111";
+
     cube.map = data.cub_map;
-   // int  i = 0;
-   int width = 0;
+    int width = 0;
     width = ft_strlen(cube.map[0]);
     while (cube.map[i])
       {
@@ -371,24 +409,13 @@ int main(int argc, char **argv)
             width = ft_strlen(cube.map[i]);
         i++;
       }  
-   cube.map_height = i;
-    cube.map_width = width;
-    // printf("[%c]\n", cube.map[20][26]);
-    printf("i = %d\n", i);
-    printf("width = %d\n",width);
-
-    //printf("%c\n", data.map[29][10]);
+        cube.map_height = i;
+        cube.map_width = width;
         if (!(cube.mlx_win= mlx_init(WIN_WIDTH, WIN_HEIGHT, "Cube3D", false))) {
         puts(mlx_strerror(mlx_errno));
         return (EXIT_FAILURE);
     }
-   // black_img = mlx_new_image(cube.mlx_win, WIN_WIDTH, WIN_HEIGHT);
-    // for (int y = 0; y < WIN_HEIGHT; y++)
-    // {
-    //     for (int x = 0; x < WIN_WIDTH; x++)
-    //         mlx_put_pixel(black_img,  x, y, ft_pixel(0, 0, 0, 255));
-    // }
-   // mlx_image_to_window(cube.mlx_win, black_img, 0, 0);
+
 
     if (!(cube.image = mlx_new_image(cube.mlx_win, WIN_WIDTH, WIN_HEIGHT))) {
         mlx_close_window(cube.mlx_win);
@@ -400,7 +427,7 @@ int main(int argc, char **argv)
         puts(mlx_strerror(mlx_errno));
         return (EXIT_FAILURE);
     }
-         if (!(cube.mini_map = mlx_new_image(cube.mlx_win, WIN_WIDTH * 0.2, WIN_HEIGHT * 0.2))) {
+         if (!(cube.mini_map = mlx_new_image(cube.mlx_win, 200, 200))) {
         mlx_close_window(cube.mlx_win);
         puts(mlx_strerror(mlx_errno));
         return (EXIT_FAILURE);
@@ -411,24 +438,14 @@ int main(int argc, char **argv)
         return (EXIT_FAILURE);}
 
     ;
-    // mlx_texture_t	*texture;
-
-    // texture = mlx_load_png("./execution/1.png");
-    // printf("%p\n", texture);
-    // if (!texture)
-	// {
-	// 	printf("7leeef\n");
-	// 	exit(1);
-	// }
-    // cube.west = mlx_texture_to_image(cube.mlx_win, texture);
-    cube.texture[0] = mlx_load_png("./execution/1.png");
+    cube.texture[0] = mlx_load_png("./execution/5.png");
     if (!cube.texture[0])
 	{
 		printf("hiit\n");
 		exit(1);
 	}
     cube.east = mlx_texture_to_image(cube.mlx_win, cube.texture[0]);
-    cube.texture[1] = mlx_load_png("./execution/2.png");
+    cube.texture[1] = mlx_load_png("./execution/5.png");
     if (!cube.texture[1])
 	{
 		printf("shiit\n");
@@ -436,14 +453,14 @@ int main(int argc, char **argv)
 	}
     cube.west = mlx_texture_to_image(cube.mlx_win, cube.texture[1]);
     
-    cube.texture[2] = mlx_load_png(data.no_path);
+    cube.texture[2] = mlx_load_png("./execution/5.png");
     if (!cube.texture[2])
 	{
 		printf("shiit\n");
 		exit(1);
 	}
     cube.south = mlx_texture_to_image(cube.mlx_win, cube.texture[2]);
-        cube.texture[3] = mlx_load_png("./execution/4.png");
+        cube.texture[3] = mlx_load_png("./execution/5.png");
     if (!cube.texture[3])
 	{
 		printf("shiit\n");
