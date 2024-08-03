@@ -94,6 +94,7 @@ typedef struct s_cube
 	int			    map_height;
 	int			    map_width;
     t_map_data      *data;
+    mlx_image_t     *frame;
     
    mlx_texture_t	*texture[4];
 } t_cube;
