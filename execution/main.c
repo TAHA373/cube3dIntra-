@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 21:14:07 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/02 20:33:26 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/04 12:48:52 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -468,7 +468,7 @@ int main(int argc, char **argv)
 	}
     cube.north = mlx_texture_to_image(cube.mlx_win, cube.texture[3]);
     mlx_loop_hook(cube.mlx_win, key_press, &cube);
-
+    mlx_loop_hook(cube.mlx_win, animation, &cube);
 	//mlx_loop_hook(cube.mlx_win, key_released, &cube);
     mlx_loop(cube.mlx_win);
     mlx_terminate(cube.mlx_win);

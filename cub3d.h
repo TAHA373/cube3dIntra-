@@ -115,6 +115,8 @@ typedef struct s_ray
      int is_ver;
 }   t_ray;
 
+//animation
+void	animation(void *input);
 
 void    cast_rays(t_cube *cube);
 int     ft_pixel(int r, int g, int b, int a);
