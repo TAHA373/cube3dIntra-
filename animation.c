@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:13:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/04 13:37:18 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/04 14:40:57 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	animation(void *input)
 	static int i;
 	static bool max;
 	static bool shooting;
-	static int shoot;
 	static int sframe;
 
 	data = (t_cube *)input;
@@ -34,33 +33,27 @@ void	animation(void *input)
 			shooting = true;
 	if (shooting)
 	{
+		
+		if (data->frame)
+		mlx_delete_image(data->mlx_win, data->frame);
+		ft_strlcpy(src, "shoot/", sizeof(src));
+		num = ft_itoa(sframe + 8);
+		sframe++;
+		ft_strlcat(src, num, sizeof(src));
+		free(num);
+		num = NULL;
+		ft_strlcat(src, ".png", sizeof(src));
+		txt = mlx_load_png(src);
+		if (!txt)
+			exit(1);
+		data->frame = mlx_texture_to_image(data->mlx_win, txt);
+		mlx_image_to_window(data->mlx_win, data->frame, 0, 0);
+		mlx_delete_texture(txt);
 		if (sframe == 17)
 		{
 			shooting = false;
 			sframe = 0;
 		}
-		if (shoot == 2)
-		{
-			shoot = 0;
-			if (data->frame)
-				mlx_delete_image(data->mlx_win, data->frame);
-			ft_strlcpy(src, "shoot/", sizeof(src));
-			num = ft_itoa(sframe + 8);
-			sframe++;
-			ft_strlcat(src, num, sizeof(src));
-			free(num);
-			num = NULL;
-			ft_strlcat(src, ".png", sizeof(src));
-			//printf("%s\n", src);
-			txt = mlx_load_png(src);
-			if (!txt)
-				exit(1);
-			data->frame = mlx_texture_to_image(data->mlx_win, txt);
-			mlx_image_to_window(data->mlx_win, data->frame, 0, 0);
-			mlx_delete_texture(txt);
-			
-		}
-		shoot++;
 	}
 	else if (!shooting)
 	{
@@ -75,7 +68,6 @@ void	animation(void *input)
 			free(num);
 			num = NULL;
 			ft_strlcat(src, ".png", sizeof(src));
-			//printf("%s\n", src);
 			txt = mlx_load_png(src);
 			if (!txt)
 				exit(1);
@@ -85,12 +77,12 @@ void	animation(void *input)
 			if (!max) {
 				i++;
 				if (i == 7)
-					max = true; // Reached the end, switch to decrementing
+					max = true;
 			}
 			if (max) {
 				i--;
 				if (i == 0)
-					max = false; // Reached the start, switch to incrementing
+					max = false;
 			}
 		}
 		count++;

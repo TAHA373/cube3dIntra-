@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 23:24:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/03 12:51:29 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/04 15:27:38 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,10 +235,25 @@ int	parsargs(int argc, char **argv)
 	return (0);
 }
 
+char *rmnewline(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '\n')
+			line[i] = '\0';
+		i++;
+	}
+	return (line);
+}
+
 int checkfile(char *file, mlx_texture_t *txt)
 {
 	int i;
 	char **list;
+	(void)txt;
 
 	i = 0;
 	while (file[i] && file[i] != ' ' && file[i] != '\t')
@@ -251,10 +266,11 @@ int checkfile(char *file, mlx_texture_t *txt)
 				return (1);
 		}
 	}
-	list = ft_split(file, ',');
-	txt = mlx_load_png(list[0]);
+	list = ft_split(file, ' ');
+	
+	txt = mlx_load_png(rmnewline(list[0]));
 	if (!txt)
-		return (1);
+		return (printf("error\n"), 1);
 	return (0);
 }
 
@@ -263,9 +279,9 @@ int	parsdirections(t_map_data *data)
 {
 	if (!data->ea_path || !data->no_path || !data->so_path || !data->we_path)
 		return (1);
-	// if (checkfile(data->ea_path, &data->textures[2]) || checkfile(data->no_path, &data->textures[0])
-	// 	|| checkfile(data->so_path, &data->textures[1]) || checkfile(data->we_path, &data->textures[3]))
-	// 	return (1);
+	if (checkfile(data->ea_path, &data->textures[2]) || checkfile(data->no_path, &data->textures[0])
+		|| checkfile(data->so_path, &data->textures[1]) || checkfile(data->we_path, &data->textures[3]))
+		return (1);
 	return (0);
 }
 

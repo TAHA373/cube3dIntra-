@@ -1,11 +1,11 @@
-EA ./execution/1.png
+EA     ./execution/5.png  
 
 
 
-NO ./execution/2.png
+NO ./execution/5.png
 
-SO  ./execution/3.png
-WE  ./execution/4.png
+SO  ./execution/5.png
+WE  ./execution/5.png
 
 
 F 3,3,3
