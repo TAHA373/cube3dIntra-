@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:13:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/04 14:40:57 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/05 10:03:34 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	animation(void *input)
 	static int sframe;
 
 	data = (t_cube *)input;
-	if (mlx_is_key_down(data->mlx_win, 88) && sframe == 0)
+	if (mlx_is_mouse_down(data->mlx_win, 0) && sframe == 0)
 			shooting = true;
 	if (shooting)
 	{

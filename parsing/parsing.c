@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 23:24:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/04 15:27:38 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/05 10:57:58 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,51 @@ int gettexters(t_map_data *data, char *line, char *dir)
 }
 
 
+int	parscf(t_map_data *data, int i, int j)
+{
+	if(data->map[i][j] == 'F')
+	{
+		if(gettexters(data, &data->map[i][j + 1], "F"))
+			return (printf("her1e\n"),1);
+	}
+	else if(data->map[i][j] == 'C')
+	{
+		if(gettexters(data, &data->map[i][j + 1], "C"))
+			return (printf("here2\n"),1);
+	}
+	else if(data->map[i][j] != '1' && data->map[i][j] != ' '
+		&& data->map[i][j] != '\t' && data->map[i][j] != '\n'
+		&& data->map[i][j] != 'N' && data->map[i][j] != 'S'
+		&& data->map[i][j] != 'E' && data->map[i][j] != 'W')
+		return (printf("(%c) (%s)\n", data->map[i][j], data->map[i]),1);
+	return (0);
+}
+
+int parsnswe(t_map_data *data, int i, int j)
+{
+	if(data->map[i][j] == 'N')
+	{
+		if(data->map[i][j + 1] != 'O' || gettexters(data, &data->map[i][j + 2], "NO"))
+			return (printf("here4\n"),1);
+	}
+	else if(data->map[i][j] == 'S')
+	{
+		if(data->map[i][j + 1] != 'O' || gettexters(data, &data->map[i][j + 2], "SO"))
+			return (printf("here5\n"),1);
+	}
+	else if(data->map[i][j] == 'W')
+	{
+		if(data->map[i][j + 1] != 'E' || gettexters(data, &data->map[i][j + 2], "WE"))
+			return (printf("here6\n"),1);
+	}
+	else if(data->map[i][j] == 'E')
+	{
+		if(data->map[i][j + 1] != 'A' || gettexters(data, &data->map[i][j + 2], "EA"))
+			return (printf("here7\n"),1);
+	}
+	return (0);
+}
+
 int parsinfos(t_map_data *data)
 {
 	char **map = data->map;
@@ -165,50 +210,11 @@ int parsinfos(t_map_data *data)
 	i = -1;
 	while(map[++i])
 	{
-		j = -1;
-		while (map[i][++j])
-		{
-			if(map[i][j] == 'N')
-			{
-				if(map[i][j + 1] != 'O' || gettexters(data, &map[i][j + 2], "NO"))
-					return (1);
-				break ;
-			}
-			else if(map[i][j] == 'S')
-			{
-				if(map[i][j + 1] != 'O' || gettexters(data, &map[i][j + 2], "SO"))
-					return (1);
-				break ;
-			}
-			else if(map[i][j] == 'W')
-			{
-				if(map[i][j + 1] != 'E' || gettexters(data, &map[i][j + 2], "WE"))
-					return (1);
-				break ;
-			}
-			else if(map[i][j] == 'E')
-			{
-				if(map[i][j + 1] != 'A' || gettexters(data, &map[i][j + 2], "EA"))
-					return (1);
-				break ;
-			}
-			else if(map[i][j] == 'F')
-			{
-				if(gettexters(data, &map[i][j + 1], "F"))
-					return (1);
-				break ;
-			}
-			else if(map[i][j] == 'C')
-			{
-				if(gettexters(data, &map[i][j + 1], "C"))
-					return (1);
-				break ;
-			}
-			else if(map[i][j] != '1' && map[i][j] != ' ' && map[i][j] != '\t' && map[i][j] != '\n')
-				return (1);
-			else if(map[i][j] == '1')
-				return (0);
-		}
+		j = 0;
+		while (map[i][j] && (map[i][j] == ' ' || map[i][j] == '\t' || map[i][j] == '\n'))
+			j++;
+		if (map[i][j] && (parsnswe(data, i, j) || parscf(data, i, j)))
+			return (printf("here\n"), 1);
 	}
 	return (0);
 }
@@ -251,24 +257,19 @@ char *rmnewline(char *line)
 
 int checkfile(char *file, mlx_texture_t *txt)
 {
-	int i;
-	char **list;
-	(void)txt;
+	int		i;
+	char	*tfile;
+	int		len;
 
 	i = 0;
-	while (file[i] && file[i] != ' ' && file[i] != '\t')
-		i++;
-	if (file[i] == ' ' || file[i] == '\t')
-	{
-		while (file[++i])
-		{
-			if (file[i] != ' ' && file[i] != '\t' && file[i] != '\n')
-				return (1);
-		}
-	}
-	list = ft_split(file, ' ');
-	
-	txt = mlx_load_png(rmnewline(list[0]));
+	len = ft_strlen(file);
+	while (len > 0 && (file[len - 1] == ' ' || file[len - 1] == '\t' || file[len - 1] == '\n'))
+		len--;
+	tfile = ft_substr(file, 0, len);
+	if (!tfile)
+		printf("no file");
+	printf("(%s)\n", tfile);
+	txt = mlx_load_png(tfile);
 	if (!txt)
 		return (printf("error\n"), 1);
 	return (0);
