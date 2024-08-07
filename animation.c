@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:13:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/07 01:51:09 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/07 21:27:43 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 /*
 	mlx_
 */
+
+void	openthenooor(t_cube *data)
+{
+	if (mlx_is_key_down(data->mlx_win, MLX_KEY_E))
+	{
+		
+	}
+}
+
 
 void	animation(void *input)
 {
@@ -37,18 +46,23 @@ void	animation(void *input)
 	if (mouse == 1)
 	{
 		mouse = 0;
-		if (data->mouse_x > x)
+		if (x < 800)
 		{
 			data->player->l_r_directions = -1;
+			data->player->palyer_rotation_speed *= 1.7;
 			update_player_place(data);
+			mlx_set_mouse_pos(data->mlx_win, 800, 500);
+			//mlx_set_mouse_pos(data->mlx_win, 800, y);
 		}
-		if (data->mouse_x < x)
+		if (x > 800)
 		{
+			data->player->palyer_rotation_speed *= 1.7;
 			data->player->l_r_directions = 1;
 			update_player_place(data);
+			mlx_set_mouse_pos(data->mlx_win, 800, 500);
+			//mlx_set_mouse_pos(data->mlx_win, 800, y);
 		}
-		else
-			update_player_place(data);
+		data->player->palyer_rotation_speed = 2 * (MATH_PI / 180);
 		mlx_get_mouse_pos(data->mlx_win, &data->mouse_x, &data->mouse_y);
 	}
 	mouse++;

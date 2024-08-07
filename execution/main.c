@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 21:14:07 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/07 01:25:56 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/08 00:51:45 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,9 @@ void    mini_map(t_cube *cube)
               //  printf("[i = %d j = %d]\n", i, j);
             if (j < (int)ft_strlen (cube->map[i]))
             {
-                if (cube->map[i][j] == '0' ||cube-> map[i][j] == ' ' )
+                if (cube->map[i][j] == '0' ||cube-> map[i][j] == ' ' ||cube-> map[i][j] == 'W' ||cube-> map[i][j] == 'E' ||cube-> map[i][j] == 'N' ||cube-> map[i][j] == 'S' )
                 mlx_put_pixel(cube->mini_map, new_x_map, new_y_map, ft_pixel(0, 0, 0, 255));
-            else
+            else if (cube->map[i][j] == '1' )
                 mlx_put_pixel(cube->mini_map, new_x_map, new_y_map, ft_pixel(255, 255, 255, 255));
             }
             else {
@@ -170,7 +170,7 @@ int check_wall(t_cube *cube, float new_x, float new_y)
     len = ft_strlen(cube->map[y]);
     if (x >= len)
         return (0);  
-    if (cube->map[y][x] == '1' ||  cube->map[y][x] == ' ')
+    if (cube->map[y][x] == '1'  || cube->map[y][x] == ' ')
         {
             //exit(0);
             return (0);
@@ -467,6 +467,9 @@ int main(int argc, char **argv)
 		exit(1);
 	}
     cube.north = mlx_texture_to_image(cube.mlx_win, cube.texture[3]);
+    cube.t_door = mlx_load_png("d.png");
+    cube.i_door = mlx_texture_to_image(cube.mlx_win, cube.t_door);
+    mlx_set_cursor_mode(cube.mlx_win, MLX_MOUSE_HIDDEN);
     mlx_get_mouse_pos(cube.mlx_win, &cube.mouse_x, &cube.mouse_y);
     mlx_loop_hook(cube.mlx_win, key_press, &cube);
     mlx_loop_hook(cube.mlx_win, animation, &cube);

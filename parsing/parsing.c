@@ -6,80 +6,24 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 23:24:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/05 11:24:38 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/08 00:46:52 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-// char	**alloc_map(int fd)
-// {
-// 	char	**map;
-// 	char	*line;
-// 	int		i;
-// 	int		newlines;
-	
-// 	i = 0;
-// 	newlines = 0;
-// 	while (1)
-// 	{
-// 		line = get_next_line(fd);
-// 		if(!line)
-// 			break ;
-// 		if (line[0] != '\n' && newlines < 6)
-// 		{
-// 			newlines++;
-// 			i++;
-// 		}
-// 	}
-// 	map = (char **)malloc(i * sizeof(char *));
-// 	if(!map)
-// 		err_exit("Malloc error!");
-// 	return (map);
-// }
-
-// void	get_map(char *file, char **map)
-// {
-// 	int		i;
-// 	int		fd;
-// 	char	*line;
-
-// 	i = 0;
-// 	fd = open(file, O_RDONLY);
-// 	if (fd < 0)
-// 		err_exit("fd error");
-// 	while (1)
-// 	{
-// 		line = get_next_line(fd);
-// 		if (!line)
-// 			break ;
-// 		if (line[0] != '\n')
-// 			map[i++] = ft_strdup(line);
-// 	}
-// 	close(fd);
-// }
-
-// int primarychecks(t_map_data *data)
-// {
-	
-// }
-
-// int	parscolors(t_map_data *data)
-// {
-	
-// }
 
 int	set_data(t_map_data *data, char *file)
 {
-	int fd;
-	int i;
+	int		fd;
+	int		i;
 	char	*line;
 
 	i = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (1);
-	while(get_next_line(fd))
+	while (get_next_line(fd))
 		i++;
 	close(fd);
 	fd = open(file, O_RDONLY);
@@ -90,7 +34,7 @@ int	set_data(t_map_data *data, char *file)
 	while (1)
 	{
 		line = get_next_line(fd);
-		if(!line)
+		if (!line)
 			break ;
 		data->map[i++] = ft_strdup(line);
 		free(line);
@@ -98,60 +42,62 @@ int	set_data(t_map_data *data, char *file)
 	return (data->map[i] = NULL, 0);
 }
 
-
-int gettexters(t_map_data *data, char *line, char *dir)
+int	gettexters2(t_map_data *data, char *file, char *dir)
 {
-	int i;
-	int end;
-	char *file;
-
-	i = 0;
-	end = 0;
-	while (line[i] == ' ' || line[i] == '\t')
-		i++;
-	if (!line[i] || line[i] == '\n')
-		return (1);
-	while(line[end] && (line[end] != ' ' || line[end] != '\t' || line[end] != '\n')) // error here
-		end++;
-	file = ft_substr(line, i, ft_strlen(line));
-	if (!file)
-		return (1);
-	if (!ft_strcmp(dir, "NO"))
+	if (!ft_strcmp(dir, "WE"))
 	{
-		if(data->no_path != NULL) //deja kayn!!
-			return (1);
-		data->no_path = ft_strdup(file);
-	}
-	else if (!ft_strcmp(dir, "SO"))
-	{
-		if(data->so_path != NULL) //deja kayn!!
-			return (1);
-		data->so_path = ft_strdup(file);	
-	}
-	else if (!ft_strcmp(dir, "WE"))
-	{
-		if(data->we_path != NULL) //deja kayn!!
+		if (data->we_path != NULL) //deja kayn!!
 			return (1);
 		data->we_path = ft_strdup(file);	
 	}
 	else if (!ft_strcmp(dir, "EA"))
 	{
-		if(data->ea_path != NULL) //deja kayn!!
+		if (data->ea_path != NULL) //deja kayn!!
 			return (1);
 		data->ea_path = ft_strdup(file);	 
 	}
 	else if (!ft_strcmp(dir, "F"))
 	{
-		if(data->f_color != NULL) //deja kayn!!
+		if (data->f_color != NULL) //deja kayn!!
 			return (1);
 		data->f_color = ft_strdup(file);	
 	}
 	else if (!ft_strcmp(dir, "C"))
 	{
-		if(data->c_color != NULL) //deja kayn!!
+		if (data->c_color != NULL) //deja kayn!!
 			return (1);
 		data->c_color = ft_strdup(file);	
 	}
+	return (0);
+}
+
+int	gettexters(t_map_data *data, char *line, char *dir)
+{
+	int		i;
+	char	*file;
+
+	i = 0;
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	if (!line[i] || line[i] == '\n')
+		return (1);
+	file = ft_substr(line, i, ft_strlen(line));
+	if (!file)
+		return (1);
+	if (!ft_strcmp(dir, "NO"))
+	{
+		if(data->no_path != NULL)
+			return (1);
+		data->no_path = ft_strdup(file);
+	}
+	else if (!ft_strcmp(dir, "SO"))
+	{
+		if(data->so_path != NULL)
+			return (1);
+		data->so_path = ft_strdup(file);	
+	}
+	else if (gettexters2(data, file, dir))
+		return (1);
 	return (0);
 }
 
@@ -450,7 +396,7 @@ int parsspaces(t_map_data *data)
 			if (parsborders(data, i, j, '0') || parsborders(data, i, j, 'N')
 				|| parsborders(data, i, j,'E') || parsborders(data, i, j, 'S')
 				|| parsborders(data,i, j, 'W'))
-				return (1);
+				return (1);	
 		}
 	}
 	return (0);
@@ -582,23 +528,3 @@ void	ft_parsing(int argc, char **argv, t_map_data *data)
 	}
 }
 
-// int main(int argc, char **argv)
-// {
-// 	t_map_data data;
-// 	data.no_path = NULL;
-// 	data.so_path = NULL;
-// 	data.ea_path = NULL;
-// 	data.we_path = NULL;
-// 	data.c_color = NULL;
-// 	data.f_color = NULL;
-// 	ft_parsing(argc, argv, &data);
-// 	printf("here->%s", data.no_path);
-// 	printf("here->%s", data.ea_path);
-// 	printf("here->%s", data.we_path);
-// 	printf("here->%s", data.so_path);
-// 	printf("%d\n%d\n%c\n", data.h, data.w, data.direction);
-// 	printf("%d, %d, %d\n", data.farr[0], data.farr[1], data.farr[2]);
-// 	printf("%d, %d, %d\n", data.carr[0], data.carr[1], data.carr[2]);
-// 	printmap(data.cub_map);
-// 	printf("%d %d\n", data.x, data.y);
-// }

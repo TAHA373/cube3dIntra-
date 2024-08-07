@@ -1,13 +1,15 @@
-EA ./path_to_the_east_texture
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
+   EA  ./execution/5.png   
 
-F 225,0,0
+NO ./execution/5.png  
+
+  
+SO  ./execution/5.png
+WE  ./execution/5.png
 
 
+F 3,3,3
 
-C 225,250,0
+C 0,0,50
 
 111111111111111111           11111111111111111
 100W01000000000001           10001
