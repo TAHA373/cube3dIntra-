@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 23:24:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/05 10:57:58 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/05 11:24:38 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,20 +239,6 @@ int	parsargs(int argc, char **argv)
 	if (i < 0)
 		return (ft_putstr_fd("Error\nCan't open the mapfile\n", 2), 1);
 	return (0);
-}
-
-char *rmnewline(char *line)
-{
-	int i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '\n')
-			line[i] = '\0';
-		i++;
-	}
-	return (line);
 }
 
 int checkfile(char *file, mlx_texture_t *txt)

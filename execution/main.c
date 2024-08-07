@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 21:14:07 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/04 12:48:52 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/07 01:25:56 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -357,7 +357,7 @@ void key_press(void *param)
         mini_map(cube);
         draw_circle(cube->mini_map, 100, 100, cube->player->radius, ft_pixel(95, 209, 23, 255) );
         //draw_circle(cube->mini_map, cube->player->x_position *0.2, cube->player->y_position * 0.2, cube->player->radius * 0.2, ft_pixel(255,255,255,255 ));
-        // draw_line(cube);
+        //draw_line(cube);
         cast_rays(cube);
         return ;
         
@@ -387,8 +387,8 @@ int main(int argc, char **argv)
     else
         player.rotation_angle = 2 * MATH_PI;
         
-    player.x_position = 7 * PIXEL_SIZE;
-    player.y_position =  7 * PIXEL_SIZE;
+    player.x_position = data.x * PIXEL_SIZE;
+    player.y_position =  data.y * PIXEL_SIZE;
     player.radius = 5;
     player.l_r_directions = 0;
     player.b_f_directions = 0;
@@ -467,6 +467,7 @@ int main(int argc, char **argv)
 		exit(1);
 	}
     cube.north = mlx_texture_to_image(cube.mlx_win, cube.texture[3]);
+    mlx_get_mouse_pos(cube.mlx_win, &cube.mouse_x, &cube.mouse_y);
     mlx_loop_hook(cube.mlx_win, key_press, &cube);
     mlx_loop_hook(cube.mlx_win, animation, &cube);
 	//mlx_loop_hook(cube.mlx_win, key_released, &cube);

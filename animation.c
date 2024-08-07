@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:13:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/05 10:03:34 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/07 01:51:09 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,32 @@ void	animation(void *input)
 	static bool max;
 	static bool shooting;
 	static int sframe;
+	int x;
+	int y;
+	static int mouse;
+	
 
 	data = (t_cube *)input;
+	mlx_get_mouse_pos(data->mlx_win, &x, &y);
+	if (mouse == 1)
+	{
+		mouse = 0;
+		if (data->mouse_x > x)
+		{
+			data->player->l_r_directions = -1;
+			update_player_place(data);
+		}
+		if (data->mouse_x < x)
+		{
+			data->player->l_r_directions = 1;
+			update_player_place(data);
+		}
+		else
+			update_player_place(data);
+		mlx_get_mouse_pos(data->mlx_win, &data->mouse_x, &data->mouse_y);
+	}
+	mouse++;
+		
 	if (mlx_is_mouse_down(data->mlx_win, 0) && sframe == 0)
 			shooting = true;
 	if (shooting)

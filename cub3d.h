@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 16:16:43 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/04 16:16:46 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/07 01:28:20 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 #include <limits.h> 
 
 #define PIXEL_SIZE 1024
-#define WIN_WIDTH 1500
-#define WIN_HEIGHT 1000
+#define WIN_WIDTH 1900
+#define WIN_HEIGHT 1080
 #define MATH_PI 3.14159265358979323846
 #define FOV 60 * (MATH_PI / 180)
 #define NUM_OF_RAYS 480 / 10
@@ -108,6 +108,8 @@ typedef struct s_cube
 	int			    map_width;
     t_map_data      *data;
     mlx_image_t     *frame;
+    int             mouse_x;
+    int             mouse_y;
     
    mlx_texture_t	*texture[4];
 } t_cube;
@@ -139,5 +141,6 @@ void    draw_line(t_cube *cube);
 void    cast_rays(t_cube *cube);
 void    render_wall(t_ray *ray, t_cube *cube, int i);
 void display_map(t_cube *cube);
+void update_player_place(t_cube *cube);
 
 #endif
