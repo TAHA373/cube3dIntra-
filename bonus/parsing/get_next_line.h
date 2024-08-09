@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 22:05:12 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/07/26 23:57:13 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/09 18:23:39 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
-# include "../cub3d.h"
+# include "../cub3d_bonus.h"
 
 //char	*ft_strdup_gnl(char *s1);
 char	*ft_strchr(const char *s, int c);

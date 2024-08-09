@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 23:24:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/08 00:46:52 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/09 15:28:16 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,7 +306,7 @@ int	parslinemap(char *map)
 	{
 		if (map[i] != '1' && map[i] != '0' && map[i] != '\n'
 			&& map[i] != ' ' && map[i] != 'N' && map[i] != 'E'
-			&& map[i] != 'S' && map[i] != 'W')
+			&& map[i] != 'S' && map[i] != 'W' && map[i] != 'D')
 			return (1);
 		if (map[i] == '\n' && checkafternewline(&map[i + 1]))
 			return (printf("here\n"),1);

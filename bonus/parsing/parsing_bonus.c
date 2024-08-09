@@ -6,11 +6,11 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 16:16:28 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/05 11:41:51 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/09 18:25:38 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./bonus/cub3d_bonus.h"
+#include "../cub3d_bonus.h"
 
 int	set_data(t_map_data *data, char *file)
 {
