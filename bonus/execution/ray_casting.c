@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 10:12:49 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/09 23:06:33 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/10 20:29:47 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,14 @@ void checkhit(t_ray *ray, t_cube *cube)
     if (cube->map[y][x] == '1')
     {
         ray->content = '1';
+        cube->isfacingdoor = false;
     }
     else if (cube->map[y][x] == 'D')
     {
+        cube->isfacingdoor = true;;
         ray->content = 'D';
+        cube->door_x = x;
+        cube->door_y = y;
     }
 }
 
