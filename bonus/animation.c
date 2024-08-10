@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:13:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/09 18:26:03 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/10 20:14:55 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,39 @@
 	mlx_
 */
 
-// void	openthenooor(t_cube *data)
-// {
-// 	if (mlx_is_key_down(data->mlx_win, MLX_KEY_E))
-// 	{
-		
-// 	}
-// }
+
+void	openthenooor(t_cube *data)
+{
+	int i;
+	int j;
+
+	i = -1;
+	if (mlx_is_key_down(data->mlx_win, MLX_KEY_E))
+	{
+		while (data->map[++i])
+		{
+			j = -1;
+			while (data->map[i][++j])
+			{
+				if (data->map[i][j] == 'D')
+					data->map[i][j] = 'O';
+			}
+		}
+	}
+	if (mlx_is_key_down(data->mlx_win, MLX_KEY_C))
+	{
+		i = -1;
+		while (data->map[++i])
+		{
+			j = -1;
+			while (data->map[i][++j])
+			{
+				if (data->map[i][j] == 'O')
+					data->map[i][j] = 'D';
+			}
+		}
+	}
+}
 
 
 void	animation(void *input)
@@ -42,6 +68,7 @@ void	animation(void *input)
 	
 
 	data = (t_cube *)input;
+	openthenooor(data);
 	mlx_get_mouse_pos(data->mlx_win, &x, &y);
 	if (mouse == 1)
 	{

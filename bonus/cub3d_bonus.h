@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 16:17:04 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/09 18:36:48 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/10 20:08:24 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ typedef struct s_cube
     int             mouse_y;
     mlx_texture_t   *t_door;
     mlx_image_t     *i_door;
-    
    mlx_texture_t	*texture[4];
 } t_cube;
 
