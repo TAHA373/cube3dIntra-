@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 16:16:28 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/09 18:25:38 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/10 19:39:36 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 int	set_data(t_map_data *data, char *file)
 {
-	int fd;
-	int i;
+	int		fd;
+	int		i;
 	char	*line;
 
 	i = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (1);
-	while(get_next_line(fd))
+	while (get_next_line(fd))
 		i++;
 	close(fd);
 	fd = open(file, O_RDONLY);
@@ -33,7 +33,7 @@ int	set_data(t_map_data *data, char *file)
 	while (1)
 	{
 		line = get_next_line(fd);
-		if(!line)
+		if (!line)
 			break ;
 		data->map[i++] = ft_strdup(line);
 		free(line);
@@ -41,60 +41,62 @@ int	set_data(t_map_data *data, char *file)
 	return (data->map[i] = NULL, 0);
 }
 
-
-int gettexters(t_map_data *data, char *line, char *dir)
+int	gettexters2(t_map_data *data, char *file, char *dir)
 {
-	int i;
-	int end;
-	char *file;
-
-	i = 0;
-	end = 0;
-	while (line[i] == ' ' || line[i] == '\t')
-		i++;
-	if (!line[i] || line[i] == '\n')
-		return (1);
-	while(line[end] && (line[end] != ' ' || line[end] != '\t' || line[end] != '\n')) // error here
-		end++;
-	file = ft_substr(line, i, ft_strlen(line));
-	if (!file)
-		return (1);
-	if (!ft_strcmp(dir, "NO"))
+	if (!ft_strcmp(dir, "WE"))
 	{
-		if(data->no_path != NULL) //deja kayn!!
-			return (1);
-		data->no_path = ft_strdup(file);
-	}
-	else if (!ft_strcmp(dir, "SO"))
-	{
-		if(data->so_path != NULL) //deja kayn!!
-			return (1);
-		data->so_path = ft_strdup(file);	
-	}
-	else if (!ft_strcmp(dir, "WE"))
-	{
-		if(data->we_path != NULL) //deja kayn!!
+		if (data->we_path != NULL) //deja kayn!!
 			return (1);
 		data->we_path = ft_strdup(file);	
 	}
 	else if (!ft_strcmp(dir, "EA"))
 	{
-		if(data->ea_path != NULL) //deja kayn!!
+		if (data->ea_path != NULL) //deja kayn!!
 			return (1);
 		data->ea_path = ft_strdup(file);	 
 	}
 	else if (!ft_strcmp(dir, "F"))
 	{
-		if(data->f_color != NULL) //deja kayn!!
+		if (data->f_color != NULL) //deja kayn!!
 			return (1);
 		data->f_color = ft_strdup(file);	
 	}
 	else if (!ft_strcmp(dir, "C"))
 	{
-		if(data->c_color != NULL) //deja kayn!!
+		if (data->c_color != NULL) //deja kayn!!
 			return (1);
 		data->c_color = ft_strdup(file);	
 	}
+	return (0);
+}
+
+int	gettexters(t_map_data *data, char *line, char *dir)
+{
+	int		i;
+	char	*file;
+
+	i = 0;
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	if (!line[i] || line[i] == '\n')
+		return (1);
+	file = ft_substr(line, i, ft_strlen(line));
+	if (!file)
+		return (1);
+	if (!ft_strcmp(dir, "NO"))
+	{
+		if(data->no_path != NULL)
+			return (1);
+		data->no_path = ft_strdup(file);
+	}
+	else if (!ft_strcmp(dir, "SO"))
+	{
+		if(data->so_path != NULL)
+			return (1);
+		data->so_path = ft_strdup(file);	
+	}
+	else if (gettexters2(data, file, dir))
+		return (1);
 	return (0);
 }
 
@@ -377,6 +379,18 @@ int parsborders(t_map_data *data, int i, int j, char c)
 	return (0);
 }
 
+int parsdoor(t_map_data *data, int i, int j)
+{
+	char **map;
+
+	map = data->cub_map;
+	if (map[i][j] == 'D' && (map[i][j + 1] == '1' && map[i][j - 1] == '1'))
+		return (1);
+	if (map[i][j] == 'D' && (map[i + 1 ][j] == '1' && map[i - 1][j] == '1'))
+		return (1);
+	return (0);
+}
+
 int parsspaces(t_map_data *data)
 {
 	char **map;
@@ -392,7 +406,9 @@ int parsspaces(t_map_data *data)
 		{
 			if (parsborders(data, i, j, '0') || parsborders(data, i, j, 'N')
 				|| parsborders(data, i, j,'E') || parsborders(data, i, j, 'S')
-				|| parsborders(data,i, j, 'W') || parsborders(data, i, j, 'D'))
+				|| parsborders(data,i, j, 'W'))
+				return (1);
+			if (map[i][j] == 'D' && !parsdoor(data, i, j))
 				return (1);
 		}
 	}
