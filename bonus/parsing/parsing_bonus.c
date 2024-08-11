@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 16:16:28 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/10 19:39:36 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/11 23:29:40 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -384,6 +384,7 @@ int parsdoor(t_map_data *data, int i, int j)
 	char **map;
 
 	map = data->cub_map;
+	//TODO add player chars(NSWE) 2
 	if (map[i][j] == 'D' && (map[i][j + 1] == '1' && map[i][j - 1] == '1'))
 		return (1);
 	if (map[i][j] == 'D' && (map[i + 1 ][j] == '1' && map[i - 1][j] == '1'))
