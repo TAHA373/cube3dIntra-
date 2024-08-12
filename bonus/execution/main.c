@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 21:14:07 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/09 23:49:54 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/12 21:04:50 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,9 +168,11 @@ int check_wall(t_cube *cube, float new_x, float new_y)
     len = ft_strlen(cube->map[y]);
     if (x >= len)
         return (0);
-    if (cube->map[y][x] == '1' || cube->map[y][x] == ' ' || cube->map[y][x] == 'D'){
-        return (0);
-    }
+    if (cube->map[y][x] == '1' || cube->map[y][x] == ' ')
+        {
+            return (0); 
+        }
+    
     return (1);
 }
 int arround_player(t_cube *cube, float new_x, float new_y)
@@ -464,6 +466,9 @@ int main(int argc, char **argv)
     cube.north = mlx_texture_to_image(cube.mlx_win, cube.texture[3]);
     cube.t_door = mlx_load_png("d.png");
     cube.i_door = mlx_texture_to_image(cube.mlx_win, cube.t_door);
+    // cube.isfacingdoor = false;
+    // cube.door_x = -1;
+    // cube.door_y = -1;
     mlx_set_cursor_mode(cube.mlx_win, MLX_MOUSE_HIDDEN);
     mlx_get_mouse_pos(cube.mlx_win, &cube.mouse_x, &cube.mouse_y);
     mlx_loop_hook(cube.mlx_win, key_press, &cube);
