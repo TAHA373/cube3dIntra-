@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 16:16:43 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/07 18:19:05 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/14 19:09:32 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "MLX42/include/MLX42/MLX42.h"
+# include "../MLX42/include/MLX42/MLX42.h"
 # include "./parsing/get_next_line.h"
-# include "./libft/libft.h"
+# include "../libft/libft.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdbool.h>
 # include <stdio.h>
-//# include <mlx.h>
-
+# include <stdio.h>
 #include <math.h>
 #include <limits.h> 
 
@@ -64,6 +63,10 @@ typedef struct s_map_data {
 	int			y;
 	int			farr[3];
 	int			carr[3];
+    mlx_texture_t   *north;
+    mlx_texture_t   *south;
+    mlx_texture_t   *east;
+    mlx_texture_t   *west;
 	mlx_texture_t	textures[4]; // no_textures is 0 | south is 1 | east is 2 | west is 3;
 	t_pars_info	info;
 }	t_map_data;

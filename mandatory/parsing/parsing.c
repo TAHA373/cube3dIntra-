@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 23:24:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/14 18:13:35 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/14 22:09:29 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,8 @@ int checkfile(char *file, mlx_texture_t *txt)
 	tfile = ft_substr(file, 0, len);
 	// if (!tfile)
 	// 	printf("no file");
-	// printf("(%s)\n", tfile);
+	 printf("(%s)\n", tfile);
+	
 	txt = mlx_load_png(tfile);
 	if (!txt)
 		return (1);
@@ -244,9 +245,9 @@ int	parsdirections(t_map_data *data)
 {
 	if (!data->ea_path || !data->no_path || !data->so_path || !data->we_path)
 		return (ft_putstr_fd("Error\nMessing Texters\n", 2), 1);
-	if (checkfile(data->ea_path, &data->textures[2]) || checkfile(data->no_path, &data->textures[0])
-		|| checkfile(data->so_path, &data->textures[1]) || checkfile(data->we_path, &data->textures[3]))
-		return (ft_putstr_fd("Error\nMessing Texters files\n", 2),1);
+	if (checkfile(data->ea_path, data->east) || checkfile(data->no_path, data->north)
+		|| checkfile(data->so_path, data->south) || checkfile(data->we_path, data->west))
+		return (ft_putstr_fd("Error\nInvalid Texters files\n", 2),1);
 	return (0);
 }
 
@@ -556,13 +557,13 @@ void	ft_parsing(int argc, char **argv, t_map_data *data)
 		exit(1);
 	if(parsinfos(data) || parsdirections(data) || parscolors(data))
 	{
-		freedata(data);
+		//freedata(data);
 		exit(1);
 	}
 	if (parsmap(data))
 	{
 		ft_putstr_fd("Error\nError in the Map\n", 2);
-		freedata(data);
+		//freedata(data);
 		exit(1);
 	}
 }

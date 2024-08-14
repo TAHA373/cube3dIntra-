@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 21:14:07 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/14 01:09:24 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/14 22:11:15 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-#include <math.h>
-#include <stdio.h>
+
 
 int ft_pixel(int r, int g, int b, int a)
 {
@@ -189,8 +188,8 @@ int arround_player(t_cube *cube, float new_x, float new_y)
     y = 0;
     while (i < 360)
     {
-        x = new_x +  cos(i * MATH_PI / 180) * (cube->player->radius);
-        y = new_y +  sin(i * MATH_PI / 180) * (cube->player->radius);
+        x = new_x +  cos(i * MATH_PI / 180) * 200;
+        y = new_y +  sin(i * MATH_PI / 180) * 200;
         if (!check_wall(cube, x, y) || !check_wall(cube, new_x, new_y))
             break ;
         i++;
@@ -378,7 +377,7 @@ int main(int argc, char **argv)
     data.map = NULL;
     data.cub_map = NULL;
     cube.data = &data;
-    ft_parsing(argc, argv, &data);
+    ft_parsing(argc, argv, cube.data);
     // printf("[%c]\n", data.direction);
     if (data.direction == 'S')
         player.rotation_angle = MATH_PI / 2;
@@ -443,39 +442,44 @@ int main(int argc, char **argv)
         puts(mlx_strerror(mlx_errno));
         return (EXIT_FAILURE);
     }
+    if (!cube.data->south)
+        printf("errr\n");
+    cube.south = mlx_texture_to_image(cube.mlx_win, cube.data->south);
+    cube.east = mlx_texture_to_image(cube.mlx_win, cube.data->east);
+    cube.west = mlx_texture_to_image(cube.mlx_win, cube.data->west);
+    cube.north = mlx_texture_to_image(cube.mlx_win, cube.data->north);
+    if (!cube.south || !cube.east || !cube.north || !cube.west)
+        exit(1);
+    // cube.texture[0] = mlx_load_png("./execution/5.png");
+    // if (!cube.texture[0])
+    // {
+    //     printf("hiit\n");
+    //     exit(1);
+    // }
+    // cube.east = mlx_texture_to_image(cube.mlx_win, cube.texture[0]);
+    // cube.texture[1] = mlx_load_png("./execution/5.png");
+    // if (!cube.texture[1])
+    // {
+    //     printf("shiit\n");
+    //     exit(1);
+    // }
+    // cube.west = mlx_texture_to_image(cube.mlx_win, cube.texture[1]);
 
-    ;
-    cube.texture[0] = mlx_load_png("./execution/5.png");
-    if (!cube.texture[0])
-    {
-        printf("hiit\n");
-        exit(1);
-    }
-    cube.east = mlx_texture_to_image(cube.mlx_win, cube.texture[0]);
-    cube.texture[1] = mlx_load_png("./execution/5.png");
-    if (!cube.texture[1])
-    {
-        printf("shiit\n");
-        exit(1);
-    }
-    cube.west = mlx_texture_to_image(cube.mlx_win, cube.texture[1]);
+    // cube.texture[2] = mlx_load_png("./execution/5.png");
+    // if (!cube.texture[2])
+    // {
+    //     printf("shiit\n");
+    //     exit(1);
+    // }
+    // cube.south = mlx_texture_to_image(cube.mlx_win, cube.texture[2]);
+    // cube.texture[3] = mlx_load_png("./execution/5.png");
+    // if (!cube.texture[3])
+    // {
+    //     printf("shiit\n");
+    //     exit(1);
+    // }
+    // cube.north = mlx_texture_to_image(cube.mlx_win, cube.texture[3]);
 
-    cube.texture[2] = mlx_load_png("./execution/5.png");
-    if (!cube.texture[2])
-    {
-        printf("shiit\n");
-        exit(1);
-    }
-    cube.south = mlx_texture_to_image(cube.mlx_win, cube.texture[2]);
-    cube.texture[3] = mlx_load_png("./execution/5.png");
-    if (!cube.texture[3])
-    {
-        printf("shiit\n");
-        exit(1);
-    }
-    cube.north = mlx_texture_to_image(cube.mlx_win, cube.texture[3]);
-    cube.t_door = mlx_load_png("d.png");
-    cube.i_door = mlx_texture_to_image(cube.mlx_win, cube.t_door);
     // cube.isfacingdoor = false;
     // cube.door_x = -1;
     // cube.door_y = -1;

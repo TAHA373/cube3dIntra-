@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+         #
+#    By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 21:14:09 by tkannane          #+#    #+#              #
-#    Updated: 2024/08/09 23:49:48 by soel-bou         ###   ########.fr        #
+#    Updated: 2024/08/14 18:35:08 by tkannane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 cmd = cc
 cflags = -fsanitize=address -g -Wextra -Wall -Werror -Ofast
-sources = ./execution/main.c ./execution/ray_casting.c ./execution/render_walls.c ./parsing/parsing.c ./parsing/get_next_line.c ./parsing/get_next_line_utils.c animation.c
+sources = ./mandatory/execution/main.c ./mandatory/execution/ray_casting.c ./mandatory/execution/render_walls.c ./mandatory/parsing/parsing.c ./mandatory/parsing/get_next_line.c ./mandatory/parsing/get_next_line_utils.c
 objs = $(sources:.c=.o)
 BSRC = ./bonus/execution/main.c ./bonus/execution/ray_casting.c ./bonus/execution/render_walls.c ./bonus/parsing/parsing_bonus.c ./bonus/parsing/get_next_line.c ./bonus/parsing/get_next_line_utils.c ./bonus/animation.c
 BOBJ = $(BSRC:.c=.o)
@@ -26,7 +26,7 @@ bonus : $(BNAME)
 
 
 
-%.o:%.c cub3d.h
+./mandatory/%.o:./mandatory/%.c ./mandatory/cub3d.h
 	$(cmd) $(cflags) -c $< -o $@
 
 $(BONUS)/%.o:$(BONUS)/%.c $(BONUS)/cub3d_bonus.h

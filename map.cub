@@ -1,10 +1,10 @@
-   EA  ./execution/5.png   
+   EA  ./mandatory/execution/5.png   
 
 
-   NO ./execution/5.png
+   NO ./mandatory/execution/5.png
 
-SO  ./execution/5.png          
-WE  ./execution/5.png
+SO  ./mandatory/execution/5.png          
+WE  ./mandatory/execution/5.png
 
 
 F  3,20,255
