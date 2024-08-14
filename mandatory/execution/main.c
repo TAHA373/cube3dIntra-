@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 21:14:07 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/14 22:11:15 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/14 22:35:02 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -442,12 +442,10 @@ int main(int argc, char **argv)
         puts(mlx_strerror(mlx_errno));
         return (EXIT_FAILURE);
     }
-    if (!cube.data->south)
-        printf("errr\n");
-    cube.south = mlx_texture_to_image(cube.mlx_win, cube.data->south);
-    cube.east = mlx_texture_to_image(cube.mlx_win, cube.data->east);
-    cube.west = mlx_texture_to_image(cube.mlx_win, cube.data->west);
-    cube.north = mlx_texture_to_image(cube.mlx_win, cube.data->north);
+    cube.south = mlx_texture_to_image(cube.mlx_win, data.south);
+    cube.east = mlx_texture_to_image(cube.mlx_win, data.east);
+    cube.west = mlx_texture_to_image(cube.mlx_win, data.west);
+    cube.north = mlx_texture_to_image(cube.mlx_win, data.north);
     if (!cube.south || !cube.east || !cube.north || !cube.west)
         exit(1);
     // cube.texture[0] = mlx_load_png("./execution/5.png");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 23:24:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/14 22:09:29 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/14 22:37:16 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,7 @@ int	parsargs(int argc, char **argv)
 	return (0);
 }
 
-int checkfile(char *file, mlx_texture_t *txt)
+int checkfile(char *file, mlx_texture_t **txt)
 {
 	int		i;
 	char	*tfile;
@@ -234,7 +234,7 @@ int checkfile(char *file, mlx_texture_t *txt)
 	// 	printf("no file");
 	 printf("(%s)\n", tfile);
 	
-	txt = mlx_load_png(tfile);
+	*txt = mlx_load_png(tfile);
 	if (!txt)
 		return (1);
 	return (0);
@@ -245,8 +245,8 @@ int	parsdirections(t_map_data *data)
 {
 	if (!data->ea_path || !data->no_path || !data->so_path || !data->we_path)
 		return (ft_putstr_fd("Error\nMessing Texters\n", 2), 1);
-	if (checkfile(data->ea_path, data->east) || checkfile(data->no_path, data->north)
-		|| checkfile(data->so_path, data->south) || checkfile(data->we_path, data->west))
+	if (checkfile(data->ea_path, &data->east) || checkfile(data->no_path, &data->north)
+		|| checkfile(data->so_path, &data->south) || checkfile(data->we_path, &data->west))
 		return (ft_putstr_fd("Error\nInvalid Texters files\n", 2),1);
 	return (0);
 }
