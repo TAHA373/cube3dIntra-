@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 21:14:07 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/12 21:04:50 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/13 19:40:33 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,8 +187,8 @@ int arround_player(t_cube *cube, float new_x, float new_y)
     y = 0;
     while (i < 360)
     {
-        x = new_x + cos(i * MATH_PI / 180) * (cube->player->radius);
-        y = new_y + sin(i * MATH_PI / 180) * (cube->player->radius);
+        x = new_x + cos(i * MATH_PI / 180) * 200;
+        y = new_y + sin(i * MATH_PI / 180) * 200;
         if (!check_wall(cube, x, y) || !check_wall(cube, new_x, new_y))
             break;
         i++;
@@ -379,8 +379,8 @@ int main(int argc, char **argv)
     else
         player.rotation_angle = 2 * MATH_PI;
 
-    player.x_position = data.x * PIXEL_SIZE;
-    player.y_position = data.y * PIXEL_SIZE;
+    player.x_position = data.x * PIXEL_SIZE + PIXEL_SIZE / 2;
+    player.y_position = data.y * PIXEL_SIZE + PIXEL_SIZE / 2;
     player.radius = 5;
     player.l_r_directions = 0;
     player.b_f_directions = 0;

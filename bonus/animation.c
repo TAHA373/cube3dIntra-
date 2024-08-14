@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:13:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/12 21:35:30 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/13 21:44:55 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,14 @@ void animation(void *input)
 		if (x < 800)
 		{
 			data->player->l_r_directions = -1;
-			data->player->palyer_rotation_speed *= 1.7;
+			data->player->palyer_rotation_speed *= 2.5;
 			update_player_place(data);
 			mlx_set_mouse_pos(data->mlx_win, 800, 500);
 			// mlx_set_mouse_pos(data->mlx_win, 800, y);
 		}
 		if (x > 800)
 		{
-			data->player->palyer_rotation_speed *= 1.7;
+			data->player->palyer_rotation_speed *= 2.5;
 			data->player->l_r_directions = 1;
 			update_player_place(data);
 			mlx_set_mouse_pos(data->mlx_win, 800, 500);

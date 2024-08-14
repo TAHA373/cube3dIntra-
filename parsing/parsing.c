@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 23:24:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/14 01:35:52 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/14 18:13:35 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@ void	freemap(char **map)
 	if (!map)
 		return ;
 	while (map[++i])
+	{
 		free(map[i]);
+		map[i] = NULL;
+	}
 	free(map);
+	map = NULL;
 }
 
 void	freedata(t_map_data *data)

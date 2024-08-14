@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 21:14:07 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/09 17:47:34 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/14 01:09:24 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -367,32 +367,34 @@ int main(int argc, char **argv)
 {
     t_cube cube;
     t_player player;
-    //PARSING
+    // PARSING
     t_map_data data;
     data.no_path = NULL;
-	data.so_path = NULL;
-	data.ea_path = NULL;
-	data.we_path = NULL;
-	data.c_color = NULL;
-	data.f_color = NULL;
+    data.so_path = NULL;
+    data.ea_path = NULL;
+    data.we_path = NULL;
+    data.c_color = NULL;
+    data.f_color = NULL;
+    data.map = NULL;
+    data.cub_map = NULL;
     cube.data = &data;
     ft_parsing(argc, argv, &data);
-    //printf("[%c]\n", data.direction);
+    // printf("[%c]\n", data.direction);
     if (data.direction == 'S')
         player.rotation_angle = MATH_PI / 2;
     else if (data.direction == 'N')
-          player.rotation_angle = 3 * MATH_PI / 2;
+        player.rotation_angle = 3 * MATH_PI / 2;
     else if (data.direction == 'W')
-      player.rotation_angle = MATH_PI;
+        player.rotation_angle = MATH_PI;
     else
         player.rotation_angle = 2 * MATH_PI;
-        
-    player.x_position = data.x * PIXEL_SIZE;
-    player.y_position =  data.y * PIXEL_SIZE;
+
+    player.x_position = data.x * PIXEL_SIZE + PIXEL_SIZE / 2;
+    player.y_position = data.y * PIXEL_SIZE + PIXEL_SIZE / 2;
     player.radius = 5;
     player.l_r_directions = 0;
     player.b_f_directions = 0;
-   //player.rotation_angle = MATH_PI / 2;
+    // player.rotation_angle = MATH_PI / 2;
     player.player_move_speed = 180;
     player.palyer_rotation_speed = 2 * (MATH_PI / 180);
 
@@ -403,76 +405,85 @@ int main(int argc, char **argv)
     int width = 0;
     width = ft_strlen(cube.map[0]);
     while (cube.map[i])
-      {
-       // printf("{%c}", cube.map[0][22]);
+    {
+        // printf("{%c}", cube.map[0][22]);
         if (width < (int)ft_strlen(cube.map[i]))
             width = ft_strlen(cube.map[i]);
         i++;
-      }  
-        cube.map_height = i;
-        cube.map_width = width;
-        if (!(cube.mlx_win= mlx_init(WIN_WIDTH, WIN_HEIGHT, "Cube3D", false))) {
+    }
+    cube.map_height = i;
+    cube.map_width = width;
+    if (!(cube.mlx_win = mlx_init(WIN_WIDTH, WIN_HEIGHT, "Cube3D", false)))
+    {
         puts(mlx_strerror(mlx_errno));
         return (EXIT_FAILURE);
     }
 
-
-    if (!(cube.image = mlx_new_image(cube.mlx_win, WIN_WIDTH, WIN_HEIGHT))) {
+    if (!(cube.image = mlx_new_image(cube.mlx_win, WIN_WIDTH, WIN_HEIGHT)))
+    {
         mlx_close_window(cube.mlx_win);
         puts(mlx_strerror(mlx_errno));
         return (EXIT_FAILURE);
     }
-        if (mlx_image_to_window(cube.mlx_win, cube.image, 0, 0) == -1) {
+    if (mlx_image_to_window(cube.mlx_win, cube.image, 0, 0) == -1)
+    {
         mlx_close_window(cube.mlx_win);
         puts(mlx_strerror(mlx_errno));
         return (EXIT_FAILURE);
     }
-         if (!(cube.mini_map = mlx_new_image(cube.mlx_win, 200, 200))) {
+    if (!(cube.mini_map = mlx_new_image(cube.mlx_win, 200, 200)))
+    {
         mlx_close_window(cube.mlx_win);
         puts(mlx_strerror(mlx_errno));
         return (EXIT_FAILURE);
     }
-            if (mlx_image_to_window(cube.mlx_win, cube.mini_map, 0, 0) == -1) {
+    if (mlx_image_to_window(cube.mlx_win, cube.mini_map, 0, 0) == -1)
+    {
         mlx_close_window(cube.mlx_win);
         puts(mlx_strerror(mlx_errno));
-        return (EXIT_FAILURE);}
+        return (EXIT_FAILURE);
+    }
 
     ;
     cube.texture[0] = mlx_load_png("./execution/5.png");
     if (!cube.texture[0])
-	{
-		printf("hiit\n");
-		exit(1);
-	}
+    {
+        printf("hiit\n");
+        exit(1);
+    }
     cube.east = mlx_texture_to_image(cube.mlx_win, cube.texture[0]);
     cube.texture[1] = mlx_load_png("./execution/5.png");
     if (!cube.texture[1])
-	{
-		printf("shiit\n");
-		exit(1);
-	}
+    {
+        printf("shiit\n");
+        exit(1);
+    }
     cube.west = mlx_texture_to_image(cube.mlx_win, cube.texture[1]);
-    
+
     cube.texture[2] = mlx_load_png("./execution/5.png");
     if (!cube.texture[2])
-	{
-		printf("shiit\n");
-		exit(1);
-	}
+    {
+        printf("shiit\n");
+        exit(1);
+    }
     cube.south = mlx_texture_to_image(cube.mlx_win, cube.texture[2]);
-        cube.texture[3] = mlx_load_png("./execution/5.png");
+    cube.texture[3] = mlx_load_png("./execution/5.png");
     if (!cube.texture[3])
-	{
-		printf("shiit\n");
-		exit(1);
-	}
+    {
+        printf("shiit\n");
+        exit(1);
+    }
     cube.north = mlx_texture_to_image(cube.mlx_win, cube.texture[3]);
+    cube.t_door = mlx_load_png("d.png");
+    cube.i_door = mlx_texture_to_image(cube.mlx_win, cube.t_door);
+    // cube.isfacingdoor = false;
+    // cube.door_x = -1;
+    // cube.door_y = -1;
     mlx_set_cursor_mode(cube.mlx_win, MLX_MOUSE_HIDDEN);
+    mlx_get_mouse_pos(cube.mlx_win, &cube.mouse_x, &cube.mouse_y);
     mlx_loop_hook(cube.mlx_win, key_press, &cube);
-    //mlx_loop_hook(cube.mlx_win, animation, &cube);
-	//mlx_loop_hook(cube.mlx_win, key_released, &cube);
     mlx_loop(cube.mlx_win);
     mlx_terminate(cube.mlx_win);
-	
+
     return (EXIT_SUCCESS);
 }
