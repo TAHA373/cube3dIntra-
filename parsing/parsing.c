@@ -6,12 +6,35 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 23:24:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/09 15:28:16 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/14 01:35:52 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
+void	freemap(char **map)
+{
+	int i;
+
+	i = -1;
+	if (!map)
+		return ;
+	while (map[++i])
+		free(map[i]);
+	free(map);
+}
+
+void	freedata(t_map_data *data)
+{
+	free(data->no_path);
+	free(data->so_path);
+	free(data->we_path);
+	free(data->ea_path);
+	free(data->f_color);
+	free(data->c_color);
+	freemap(data->cub_map);
+	freemap(data->map);
+}
 
 int	set_data(t_map_data *data, char *file)
 {
@@ -30,6 +53,8 @@ int	set_data(t_map_data *data, char *file)
 	if (fd < 0)
 		return (1);
 	data->map = (char **)malloc(sizeof(char *) * (i + 1));
+	if (!data->map)
+		return (close(fd), 1);
 	i = 0;
 	while (1)
 	{
@@ -37,6 +62,8 @@ int	set_data(t_map_data *data, char *file)
 		if (!line)
 			break ;
 		data->map[i++] = ft_strdup(line);
+		if (!data->map[i])
+			return (free(line), freemap(data->map), 1);
 		free(line);
 	}
 	return (data->map[i] = NULL, 0);
@@ -107,18 +134,18 @@ int	parscf(t_map_data *data, int i, int j)
 	if(data->map[i][j] == 'F')
 	{
 		if(gettexters(data, &data->map[i][j + 1], "F"))
-			return (printf("her1e\n"),1);
+			return (1);
 	}
 	else if(data->map[i][j] == 'C')
 	{
 		if(gettexters(data, &data->map[i][j + 1], "C"))
-			return (printf("here2\n"),1);
+			return (1);
 	}
 	else if(data->map[i][j] != '1' && data->map[i][j] != ' '
 		&& data->map[i][j] != '\t' && data->map[i][j] != '\n'
 		&& data->map[i][j] != 'N' && data->map[i][j] != 'S'
 		&& data->map[i][j] != 'E' && data->map[i][j] != 'W')
-		return (printf("(%c) (%s)\n", data->map[i][j], data->map[i]),1);
+		return (1);
 	return (0);
 }
 
@@ -127,22 +154,22 @@ int parsnswe(t_map_data *data, int i, int j)
 	if(data->map[i][j] == 'N')
 	{
 		if(data->map[i][j + 1] != 'O' || gettexters(data, &data->map[i][j + 2], "NO"))
-			return (printf("here4\n"),1);
+			return (1);
 	}
 	else if(data->map[i][j] == 'S')
 	{
 		if(data->map[i][j + 1] != 'O' || gettexters(data, &data->map[i][j + 2], "SO"))
-			return (printf("here5\n"),1);
+			return (1);
 	}
 	else if(data->map[i][j] == 'W')
 	{
 		if(data->map[i][j + 1] != 'E' || gettexters(data, &data->map[i][j + 2], "WE"))
-			return (printf("here6\n"),1);
+			return (1);
 	}
 	else if(data->map[i][j] == 'E')
 	{
 		if(data->map[i][j + 1] != 'A' || gettexters(data, &data->map[i][j + 2], "EA"))
-			return (printf("here7\n"),1);
+			return (1);
 	}
 	return (0);
 }
@@ -160,7 +187,7 @@ int parsinfos(t_map_data *data)
 		while (map[i][j] && (map[i][j] == ' ' || map[i][j] == '\t' || map[i][j] == '\n'))
 			j++;
 		if (map[i][j] && (parsnswe(data, i, j) || parscf(data, i, j)))
-			return (printf("here\n"), 1);
+			return (ft_putstr_fd("Error\nErro in texters data\n", 2), 1);
 	}
 	return (0);
 }
@@ -184,6 +211,7 @@ int	parsargs(int argc, char **argv)
 	i = open(argv[1], O_RDONLY);
 	if (i < 0)
 		return (ft_putstr_fd("Error\nCan't open the mapfile\n", 2), 1);
+	close(i);
 	return (0);
 }
 
@@ -198,12 +226,12 @@ int checkfile(char *file, mlx_texture_t *txt)
 	while (len > 0 && (file[len - 1] == ' ' || file[len - 1] == '\t' || file[len - 1] == '\n'))
 		len--;
 	tfile = ft_substr(file, 0, len);
-	if (!tfile)
-		printf("no file");
-	printf("(%s)\n", tfile);
+	// if (!tfile)
+	// 	printf("no file");
+	// printf("(%s)\n", tfile);
 	txt = mlx_load_png(tfile);
 	if (!txt)
-		return (printf("error\n"), 1);
+		return (1);
 	return (0);
 }
 
@@ -211,10 +239,10 @@ int checkfile(char *file, mlx_texture_t *txt)
 int	parsdirections(t_map_data *data)
 {
 	if (!data->ea_path || !data->no_path || !data->so_path || !data->we_path)
-		return (1);
+		return (ft_putstr_fd("Error\nMessing Texters\n", 2), 1);
 	if (checkfile(data->ea_path, &data->textures[2]) || checkfile(data->no_path, &data->textures[0])
 		|| checkfile(data->so_path, &data->textures[1]) || checkfile(data->we_path, &data->textures[3]))
-		return (1);
+		return (ft_putstr_fd("Error\nMessing Texters files\n", 2),1);
 	return (0);
 }
 
@@ -244,6 +272,7 @@ int checknumbers(char **nums, int *colors)
 	colors[0] = ft_atoi(nums[0]);
 	colors[1] = ft_atoi(nums[1]);
 	colors[2] = ft_atoi(nums[2]);
+	freemap(nums);
 	if ((colors[0] >= 0 && colors[0] <= 255)
 		&& (colors[1] >= 0 && colors[1] <= 255)
 		&& (colors[2] >= 0 && colors[2] <= 255))
@@ -271,16 +300,20 @@ int parscolors(t_map_data *data)
 	int i;
 
 	i = -1;
+	ccors = NULL;
+	fcors = NULL;
+	// *ccors = NULL;
+	// *fcors = NULL;
 	if (!data->f_color || !data->c_color)
-		return (1);
+		return (ft_putstr_fd("Error\n Missing color\n", 2), 1);
 	if (commacounter(data->c_color) || commacounter(data->f_color))
-		return (printf("here\n"), 1);
+		return (ft_putstr_fd("Error\n in color\n", 2), 1);
 	if (checkforc(data->c_color) || checkforc(data->f_color))
-		return (printf("hi\n"), 1);
+		return (ft_putstr_fd("Error\n char in color\n", 2), 1);
 	ccors = ft_split(data->c_color, ',');
 	fcors = ft_split(data->f_color, ',');
 	if (checknumbers(fcors, data->farr) || checknumbers(ccors, data->carr))
-		return (printf("here\n"),1);
+		return (ft_putstr_fd("Error\n in numbers\n", 2), 1);
 	return (0);
 }
 
@@ -309,7 +342,7 @@ int	parslinemap(char *map)
 			&& map[i] != 'S' && map[i] != 'W' && map[i] != 'D')
 			return (1);
 		if (map[i] == '\n' && checkafternewline(&map[i + 1]))
-			return (printf("here\n"),1);
+			return (1);
 		if (map[i] == 'N' || map[i] == 'E' || map[i] == 'S' || map[i] == 'W')
 			pos++;
 	}
@@ -330,6 +363,8 @@ char	*getlinemap(char **map)
 	{
 		tmp = ft_strdup(linemap);
 		linemap = ft_strjoin(tmp, map[i]);
+		if (!linemap)
+			return (NULL);
 		free(tmp);
 	}
 	return (linemap);
@@ -496,8 +531,12 @@ int parsmap(t_map_data *data)
 	if (!linemap)
 		return (1);
 	if (parslinemap(linemap)) //bug in /n after /n
-		return (1);
+		return (free(linemap), 1);
+	//free(linemap);
 	data->cub_map = ft_split(linemap, '\n');
+	free(linemap);
+	if (!data->cub_map)
+		return (1);
 	getdemonsion(data);
 	if (checkones(data))
 		return (1);
@@ -506,25 +545,20 @@ int parsmap(t_map_data *data)
 	return (0);
 }
 
+
 void	ft_parsing(int argc, char **argv, t_map_data *data)
 {
-	if (parsargs(argc, argv))
+	if (parsargs(argc, argv) || set_data(data, argv[1]))
 		exit(1);
-	if(set_data(data, argv[1]))
-		exit(1);
-	if(parsinfos(data))
-		exit(1);
-	if (parsdirections(data))
-		exit (1);
-	if (parscolors(data))
+	if(parsinfos(data) || parsdirections(data) || parscolors(data))
 	{
-		printf("err\n");
+		freedata(data);
 		exit(1);
 	}
 	if (parsmap(data))
 	{
-		printf("err in map");
+		ft_putstr_fd("Error\nError in the Map\n", 2);
+		freedata(data);
 		exit(1);
 	}
 }
-
