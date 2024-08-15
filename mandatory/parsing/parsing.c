@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 23:24:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/15 19:03:00 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/15 22:36:28 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,12 @@ int	set_data(t_map_data *data, char *file)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (1);
-	while (get_next_line(fd))
+	while ((line = get_next_line(fd)))
+	{
+		free(line);
+		line  = NULL;
 		i++;
+	}
 	close(fd);
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
@@ -79,25 +83,29 @@ int	gettexters2(t_map_data *data, char *file, char *dir)
 	{
 		if (data->we_path != NULL) //deja kayn!!
 			return (1);
-		data->we_path = ft_strdup(file);	
+		data->we_path = ft_strdup(file);
+		free(file);	
 	}
 	else if (!ft_strcmp(dir, "EA"))
 	{
 		if (data->ea_path != NULL) //deja kayn!!
 			return (1);
-		data->ea_path = ft_strdup(file);	 
+		data->ea_path = ft_strdup(file);
+		free(file);	 
 	}
 	else if (!ft_strcmp(dir, "F"))
 	{
 		if (data->f_color != NULL) //deja kayn!!
 			return (1);
-		data->f_color = ft_strdup(file);	
+		data->f_color = ft_strdup(file);
+		free(file);	
 	}
 	else if (!ft_strcmp(dir, "C"))
 	{
 		if (data->c_color != NULL) //deja kayn!!
 			return (1);
-		data->c_color = ft_strdup(file);	
+		data->c_color = ft_strdup(file);
+		free(file);
 	}
 	return (0);
 }
@@ -118,18 +126,20 @@ int	gettexters(t_map_data *data, char *line, char *dir)
 	if (!ft_strcmp(dir, "NO"))
 	{
 		if(data->no_path != NULL)
-			return (free(line), line = NULL, 1);
+			return (free(file), file = NULL, 1);
 		data->no_path = ft_strdup(file);
+		free(file);
 	}
 	else if (!ft_strcmp(dir, "SO"))
 	{
 		if(data->so_path != NULL)
-			return (free(line), line = NULL, 1);
-		data->so_path = ft_strdup(file);	
+			return (free(file), file = NULL, 1);
+		data->so_path = ft_strdup(file);
+		free(file);	
 	}
 	else if (gettexters2(data, file, dir))
-		return (free(line), line = NULL, 1);
-//	free(line);
+		return (free(file), file = NULL, 1);
+	
 	return (0);
 }
 
@@ -314,6 +324,8 @@ int parscolors(t_map_data *data)
 		return (ft_putstr_fd("Error\n char in color\n", 2), 1);
 	ccors = ft_split(data->c_color, ',');
 	fcors = ft_split(data->f_color, ',');
+	free(data->c_color);
+	free(data->f_color);
 	if (checknumbers(fcors, data->farr) || checknumbers(ccors, data->carr))
 		return (ft_putstr_fd("Error\n in numbers\n", 2), 1);
 	return (0);
@@ -364,9 +376,10 @@ char	*getlinemap(char **map)
 	while (map[++i])
 	{
 		tmp = ft_strdup(linemap);
+		free(linemap);
 		linemap = ft_strjoin(tmp, map[i]);
 		if (!linemap)
-			return (NULL);
+			return (free(tmp), tmp = NULL, NULL);
 		free(tmp);
 	}
 	return (linemap);
@@ -530,11 +543,11 @@ int parsmap(t_map_data *data)
 	if (!map)
 		return (1);
 	linemap = getlinemap(map);
+	freemap(data->map);
 	if (!linemap)
 		return (1);
 	if (parslinemap(linemap)) //bug in /n after /n
 		return (free(linemap), 1);
-	//free(linemap);
 	data->cub_map = ft_split(linemap, '\n');
 	free(linemap);
 	if (!data->cub_map)
@@ -557,10 +570,17 @@ void	ft_parsing(int argc, char **argv, t_map_data *data)
 		freedata(data);
 		exit(1);
 	}
+	free(data->no_path);
+	free(data->so_path);
+	free(data->we_path);
+	free(data->ea_path);
+	// free(data->f_color);
+	// free(data->c_color);
 	if (parsmap(data))
 	{
 		ft_putstr_fd("Error\nError in the Map\n", 2);
-		freedata(data);
+		freemap(data->cub_map);
+		//freedata(data);
 		exit(1);
 	}
 }

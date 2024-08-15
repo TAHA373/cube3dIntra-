@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 21:14:07 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/15 19:02:13 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/15 22:37:30 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -362,9 +362,13 @@ void key_press(void *param)
         
 }
 
+void    f(){
+    system("leaks cub3D");
+}
 
 int main(int argc, char **argv)
 {
+    atexit(f);
     t_cube cube;
     t_player player;
     // PARSING
@@ -490,6 +494,6 @@ int main(int argc, char **argv)
     mlx_loop_hook(cube.mlx_win, key_press, &cube);
     mlx_loop(cube.mlx_win);
     mlx_terminate(cube.mlx_win);
-
+    freemap(data.cub_map);
     return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 16:16:43 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/14 22:27:30 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/15 22:37:10 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_map_data {
 }	t_map_data;
 
 //ERRORS
+void	freemap(char **map);
 void    err_exit(char *s);
 void	ft_parsing(int argc, char **argv, t_map_data *data);
 

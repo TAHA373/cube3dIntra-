@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:46:57 by soel-bou          #+#    #+#             */
-/*   Updated: 2023/11/15 17:06:12 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/15 21:09:52 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	*ft_fill(const char *s1, const char *s2, size_t s1len, size_t s2len)
 	return (strj);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*strj;
 	size_t	s1len;
