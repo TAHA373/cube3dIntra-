@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 21:14:07 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/14 22:35:02 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:02:13 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -362,6 +362,7 @@ void key_press(void *param)
         
 }
 
+
 int main(int argc, char **argv)
 {
     t_cube cube;
@@ -376,9 +377,12 @@ int main(int argc, char **argv)
     data.f_color = NULL;
     data.map = NULL;
     data.cub_map = NULL;
+    data.east = NULL;
+    data.west = NULL;
+    data.north = NULL;
+    data.south = NULL;
+    ft_parsing(argc, argv, &data);
     cube.data = &data;
-    ft_parsing(argc, argv, cube.data);
-    // printf("[%c]\n", data.direction);
     if (data.direction == 'S')
         player.rotation_angle = MATH_PI / 2;
     else if (data.direction == 'N')
@@ -446,8 +450,8 @@ int main(int argc, char **argv)
     cube.east = mlx_texture_to_image(cube.mlx_win, data.east);
     cube.west = mlx_texture_to_image(cube.mlx_win, data.west);
     cube.north = mlx_texture_to_image(cube.mlx_win, data.north);
-    if (!cube.south || !cube.east || !cube.north || !cube.west)
-        exit(1);
+    // if (!cube.south || !cube.east || !cube.north || !cube.west)
+    //     exit(1);
     // cube.texture[0] = mlx_load_png("./execution/5.png");
     // if (!cube.texture[0])
     // {

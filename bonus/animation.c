@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:13:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/13 21:44:55 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/15 18:07:31 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@
 	mlx_
 */
 
-void openthenooor(t_cube *data)
+void	openthenooor(t_cube *data)
 {
-    int player_x = (int)((data->player->x_position) / PIXEL_SIZE);
-    int player_y = (int)((data->player->y_position) / PIXEL_SIZE);
-	static int x;
-	static int y;
+    int			player_x;
+    int			player_y;
+	static	int	x;
+	static	int	y;
 	
+	player_x = (int)((data->player->x_position) / PIXEL_SIZE);
+    player_y = (int)((data->player->y_position) / PIXEL_SIZE);
 	if (data->map[player_y][player_x] == 'D')
 	{
 		x = player_x;
@@ -33,27 +35,6 @@ void openthenooor(t_cube *data)
 	{
 		data->map[y][x] = 'D';
 	}
-	
-	// static int x;
-	// static int y;
-    
-    // // Check if the player is facing the door and standing at a specific map location ('C')
-    // if (data->isfacingdoor)
-    // {
-    //     // Open the door
-	// 	data->isfacingdoor = false;
-	// 	printf("%c\n", data->map[data->door_y][data->door_x]);
-    //     data->map[data->door_y][data->door_x] = 'C';
-	// 	x = data->door_x;
-	// 	y = data->door_y;
-    // }
-    // else if (data->map[y][x] == 'C' && data->map[player_y][player_x] != 'C')
-    // {
-    //     // Close the door
-    //     puts("hi");
-	// 	printf("%d ; %d\n", y, x);
-    // 	data->map[y][x] = 'D';
-    // }
 }
 
 void animation(void *input)

@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 16:17:04 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/12 20:26:58 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/15 17:11:17 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@ typedef struct s_map_data {
 	int			y;
 	int			farr[3];
 	int			carr[3];
+    mlx_texture_t   *north;
+    mlx_texture_t   *south;
+    mlx_texture_t   *east;
+    mlx_texture_t   *west;
 	mlx_texture_t	textures[4]; // no_textures is 0 | south is 1 | east is 2 | west is 3;
 	t_pars_info	info;
 }	t_map_data;

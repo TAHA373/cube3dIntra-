@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 23:24:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/14 22:37:16 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:03:00 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	set_data(t_map_data *data, char *file)
 		if (!line)
 			break ;
 		data->map[i++] = ft_strdup(line);
-		if (!data->map[i])
+		if (!data->map[i - 1])
 			return (free(line), freemap(data->map), 1);
 		free(line);
 	}
@@ -118,17 +118,18 @@ int	gettexters(t_map_data *data, char *line, char *dir)
 	if (!ft_strcmp(dir, "NO"))
 	{
 		if(data->no_path != NULL)
-			return (1);
+			return (free(line), line = NULL, 1);
 		data->no_path = ft_strdup(file);
 	}
 	else if (!ft_strcmp(dir, "SO"))
 	{
 		if(data->so_path != NULL)
-			return (1);
+			return (free(line), line = NULL, 1);
 		data->so_path = ft_strdup(file);	
 	}
 	else if (gettexters2(data, file, dir))
-		return (1);
+		return (free(line), line = NULL, 1);
+//	free(line);
 	return (0);
 }
 
@@ -230,11 +231,9 @@ int checkfile(char *file, mlx_texture_t **txt)
 	while (len > 0 && (file[len - 1] == ' ' || file[len - 1] == '\t' || file[len - 1] == '\n'))
 		len--;
 	tfile = ft_substr(file, 0, len);
-	// if (!tfile)
-	// 	printf("no file");
-	 printf("(%s)\n", tfile);
-	
 	*txt = mlx_load_png(tfile);
+	free(tfile);
+	tfile = NULL;
 	if (!txt)
 		return (1);
 	return (0);
@@ -307,8 +306,6 @@ int parscolors(t_map_data *data)
 	i = -1;
 	ccors = NULL;
 	fcors = NULL;
-	// *ccors = NULL;
-	// *fcors = NULL;
 	if (!data->f_color || !data->c_color)
 		return (ft_putstr_fd("Error\n Missing color\n", 2), 1);
 	if (commacounter(data->c_color) || commacounter(data->f_color))
@@ -344,7 +341,7 @@ int	parslinemap(char *map)
 	{
 		if (map[i] != '1' && map[i] != '0' && map[i] != '\n'
 			&& map[i] != ' ' && map[i] != 'N' && map[i] != 'E'
-			&& map[i] != 'S' && map[i] != 'W' && map[i] != 'D')
+			&& map[i] != 'S' && map[i] != 'W')
 			return (1);
 		if (map[i] == '\n' && checkafternewline(&map[i + 1]))
 			return (1);
@@ -557,13 +554,13 @@ void	ft_parsing(int argc, char **argv, t_map_data *data)
 		exit(1);
 	if(parsinfos(data) || parsdirections(data) || parscolors(data))
 	{
-		//freedata(data);
+		freedata(data);
 		exit(1);
 	}
 	if (parsmap(data))
 	{
 		ft_putstr_fd("Error\nError in the Map\n", 2);
-		//freedata(data);
+		freedata(data);
 		exit(1);
 	}
 }

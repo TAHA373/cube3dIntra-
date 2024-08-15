@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 21:14:07 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/14 18:43:53 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/15 17:09:38 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -433,10 +433,12 @@ int main(int argc, char **argv)
         return (EXIT_FAILURE);
     }
 
-    cube.east = mlx_texture_to_image(cube.mlx_win, &data.textures[2]);
-    cube.west = mlx_texture_to_image(cube.mlx_win, &data.textures[3]);
-    cube.north = mlx_texture_to_image(cube.mlx_win, &data.textures[0]);
-    cube.south = mlx_texture_to_image(cube.mlx_win, &data.textures[1]);
+    cube.south = mlx_texture_to_image(cube.mlx_win, data.south);
+    cube.east = mlx_texture_to_image(cube.mlx_win, data.east);
+    cube.west = mlx_texture_to_image(cube.mlx_win, data.west);
+    cube.north = mlx_texture_to_image(cube.mlx_win, data.north);
+    if (!cube.south || !cube.east || !cube.north || !cube.west)
+        exit(1);
     // cube.texture[0] = mlx_load_png("./execution/5.png");
     // if (!cube.texture[0])
     // {
