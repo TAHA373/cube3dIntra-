@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 16:17:04 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/15 17:11:17 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/17 01:02:21 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	ft_parsing(int argc, char **argv, t_map_data *data);
 
 //animation
 void	animation(void *input);
-
+void	ft_mouse(t_cube *data);
 void    cast_rays(t_cube *cube);
 int     ft_pixel(int r, int g, int b, int a);
 float   ft_periodic(float angle);
