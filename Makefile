@@ -6,13 +6,13 @@
 #    By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 21:14:09 by tkannane          #+#    #+#              #
-#    Updated: 2024/08/17 01:03:19 by soel-bou         ###   ########.fr        #
+#    Updated: 2024/08/17 01:21:56 by soel-bou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 cmd = cc
 cflags = -g -fsanitize=address -Wextra -Wall -Werror -Ofast
-sources = ./mandatory/execution/main.c ./mandatory/execution/ray_casting.c ./mandatory/execution/render_walls.c ./mandatory/parsing/parsing.c ./mandatory/parsing/get_next_line.c ./mandatory/parsing/get_next_line_utils.c
+sources = ./mandatory/execution/main.c ./mandatory/execution/ray_casting.c ./mandatory/execution/render_walls.c ./mandatory/parsing/parsing.c ./mandatory/parsing/get_next_line.c ./mandatory/parsing/get_next_line_utils.c ./mandatory/parsing/parsmap.c
 objs = $(sources:.c=.o)
 BSRC = ./bonus/execution/main.c ./bonus/execution/ray_casting.c ./bonus/execution/render_walls.c ./bonus/parsing/parsing_bonus.c ./bonus/parsing/get_next_line.c ./bonus/parsing/get_next_line_utils.c ./bonus/animation.c ./bonus/mouse.c
 BOBJ = $(BSRC:.c=.o)

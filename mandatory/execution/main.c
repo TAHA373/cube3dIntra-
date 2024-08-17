@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 21:14:07 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/15 22:37:30 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/17 01:32:31 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -362,13 +362,9 @@ void key_press(void *param)
         
 }
 
-void    f(){
-    system("leaks cub3D");
-}
 
 int main(int argc, char **argv)
 {
-    atexit(f);
     t_cube cube;
     t_player player;
     // PARSING
