@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+         #
+#    By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 21:14:09 by tkannane          #+#    #+#              #
-#    Updated: 2024/08/17 01:21:56 by soel-bou         ###   ########.fr        #
+#    Updated: 2024/08/18 15:55:10 by tkannane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 cmd = cc
 cflags = -g -fsanitize=address -Wextra -Wall -Werror -Ofast
-sources = ./mandatory/execution/main.c ./mandatory/execution/ray_casting.c ./mandatory/execution/render_walls.c ./mandatory/parsing/parsing.c ./mandatory/parsing/get_next_line.c ./mandatory/parsing/get_next_line_utils.c ./mandatory/parsing/parsmap.c
+sources = ./mandatory/execution/main.c ./mandatory/execution/ray_casting.c ./mandatory/execution/render_walls.c ./mandatory/parsing/parsing.c ./mandatory/parsing/get_next_line.c ./mandatory/parsing/get_next_line_utils.c ./mandatory/parsing/parsmap.c ./mandatory/execution/initialize.c ./mandatory/execution/key_press.c ./mandatory/execution/player_place.c ./mandatory/execution/texture_image.c ./mandatory/execution/render_walls_helper.c ./mandatory/execution/ray_casting_helper.c ./mandatory/execution/initialize_rays.c
 objs = $(sources:.c=.o)
-BSRC = ./bonus/execution/main.c ./bonus/execution/ray_casting.c ./bonus/execution/render_walls.c ./bonus/parsing/parsing_bonus.c ./bonus/parsing/get_next_line.c ./bonus/parsing/get_next_line_utils.c ./bonus/animation.c ./bonus/mouse.c
+BSRC = ./bonus/execution/main.c ./bonus/execution/ray_casting.c ./bonus/execution/render_walls.c ./bonus/parsing/parsing_bonus.c ./bonus/parsing/get_next_line.c ./bonus/parsing/get_next_line_utils.c ./bonus/animation.c ./bonus/mouse.c ./bonus/execution/initialize.c ./bonus/execution/texture_image.c
 BOBJ = $(BSRC:.c=.o)
 NAME = cub3D
 BNAME = cub3D_bonus
