@@ -6,7 +6,7 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 11:39:56 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/18 15:44:26 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:56:33 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int	check_wall(t_cube *cube, float new_x, float new_y)
 	int		len;
 
 	x = floor(new_x / PIXEL_SIZE);
-	y = floor( new_y / PIXEL_SIZE);
+	y = floor(new_y / PIXEL_SIZE);
 	if (x >= cube->map_width || y >= cube->map_height || x < 0 || y < 0)
 		return (0);
 	len = ft_strlen(cube->map[y]);
 	if (x >= len)
-		return (0);  
-	if (cube->map[y][x] == '1'  || cube->map[y][x] == ' ')
+		return (0);
+	if (cube->map[y][x] == '1' || cube->map[y][x] == ' ')
 		return (0);
 	return (1);
 }
@@ -41,8 +41,8 @@ int	arround_player(t_cube *cube, float new_x, float new_y)
 	y = 0;
 	while (i < 360)
 	{
-		x = new_x +  cos(i * MATH_PI / 180) * 200;
-		y = new_y +  sin(i * MATH_PI / 180) * 200;
+		x = new_x + cos(i * MATH_PI / 180) * 200;
+		y = new_y + sin(i * MATH_PI / 180) * 200;
 		if (!check_wall(cube, x, y) || !check_wall(cube, new_x, new_y))
 			break ;
 		i++;

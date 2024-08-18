@@ -6,38 +6,33 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 23:24:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/17 17:14:01 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:35:46 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	freemap(char **map)
+int	get_i(char *file)
 {
-	int i;
+	int		i;
+	char	*line;
+	int		fd;
 
-	i = -1;
-	if (!map)
-		return ;
-	while (map[++i])
+	i = 0;
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		return (1);
+	while (1)
 	{
-		free(map[i]);
-		map[i] = NULL;
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		free(line);
+		line = NULL;
+		i++;
 	}
-	free(map);
-	map = NULL;
-}
-
-void	freedata(t_map_data *data)
-{
-	free(data->no_path);
-	free(data->so_path);
-	free(data->we_path);
-	free(data->ea_path);
-	free(data->f_color);
-	free(data->c_color);
-	freemap(data->cub_map);
-	freemap(data->map);
+	close(fd);
+	return (i);
 }
 
 int	set_data(t_map_data *data, char *file)
@@ -46,17 +41,7 @@ int	set_data(t_map_data *data, char *file)
 	int		i;
 	char	*line;
 
-	i = 0;
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-		return (1);
-	while ((line = get_next_line(fd)))
-	{
-		free(line);
-		line  = NULL;
-		i++;
-	}
-	close(fd);
+	i = get_i(file);
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (1);
@@ -76,7 +61,6 @@ int	set_data(t_map_data *data, char *file)
 	}
 	return (data->map[i] = NULL, 0);
 }
-
 
 int	parsargs(int argc, char **argv)
 {
@@ -105,7 +89,7 @@ void	ft_parsing(int argc, char **argv, t_map_data *data)
 {
 	if (parsargs(argc, argv) || set_data(data, argv[1]))
 		exit(1);
-	if(parsinfos(data) || parsdirections(data) || parscolors(data))
+	if (parsinfos(data) || parsdirections(data) || parscolors(data))
 	{
 		freedata(data);
 		exit(1);

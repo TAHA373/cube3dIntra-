@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 16:17:17 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/17 16:54:38 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:57:32 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 int	parscf(t_map_data *data, int i, int j)
 {
-	if(data->map[i][j] == 'F')
+	if (data->map[i][j] == 'F')
 	{
-		if(gettexters(data, &data->map[i][j + 1], "F"))
+		if (gettexters(data, &data->map[i][j + 1], "F"))
 			return (1);
 	}
-	else if(data->map[i][j] == 'C')
+	else if (data->map[i][j] == 'C')
 	{
-		if(gettexters(data, &data->map[i][j + 1], "C"))
+		if (gettexters(data, &data->map[i][j + 1], "C"))
 			return (1);
 	}
-	else if(data->map[i][j] != '1' && data->map[i][j] != ' '
+	else if (data->map[i][j] != '1' && data->map[i][j] != ' '
 		&& data->map[i][j] != '\t' && data->map[i][j] != '\n'
 		&& data->map[i][j] != 'N' && data->map[i][j] != 'S'
 		&& data->map[i][j] != 'E' && data->map[i][j] != 'W')
@@ -32,42 +32,48 @@ int	parscf(t_map_data *data, int i, int j)
 	return (0);
 }
 
-int parsnswe(t_map_data *data, int i, int j)
+int	parsnswe(t_map_data *data, int i, int j)
 {
-	if(data->map[i][j] == 'N')
+	if (data->map[i][j] == 'N')
 	{
-		if(data->map[i][j + 1] != 'O' || gettexters(data, &data->map[i][j + 2], "NO"))
+		if (data->map[i][j + 1] != 'O'
+			|| gettexters(data, &data->map[i][j + 2], "NO"))
 			return (1);
 	}
-	else if(data->map[i][j] == 'S')
+	else if (data->map[i][j] == 'S')
 	{
-		if(data->map[i][j + 1] != 'O' || gettexters(data, &data->map[i][j + 2], "SO"))
+		if (data->map[i][j + 1] != 'O'
+			|| gettexters(data, &data->map[i][j + 2], "SO"))
 			return (1);
 	}
-	else if(data->map[i][j] == 'W')
+	else if (data->map[i][j] == 'W')
 	{
-		if(data->map[i][j + 1] != 'E' || gettexters(data, &data->map[i][j + 2], "WE"))
+		if (data->map[i][j + 1] != 'E'
+			|| gettexters(data, &data->map[i][j + 2], "WE"))
 			return (1);
 	}
-	else if(data->map[i][j] == 'E')
+	else if (data->map[i][j] == 'E')
 	{
-		if(data->map[i][j + 1] != 'A' || gettexters(data, &data->map[i][j + 2], "EA"))
+		if (data->map[i][j + 1] != 'A'
+			|| gettexters(data, &data->map[i][j + 2], "EA"))
 			return (1);
 	}
 	return (0);
 }
 
-int parsinfos(t_map_data *data)
+int	parsinfos(t_map_data *data)
 {
-	char **map = data->map;
-	int i;
-	int j;
+	char	**map;
+	int		i;
+	int		j;
 
 	i = -1;
-	while(map[++i])
+	map = data->map;
+	while (map[++i])
 	{
 		j = 0;
-		while (map[i][j] && (map[i][j] == ' ' || map[i][j] == '\t' || map[i][j] == '\n'))
+		while (map[i][j] && (map[i][j] == ' '
+			|| map[i][j] == '\t' || map[i][j] == '\n'))
 			j++;
 		if (map[i][j] && (parsnswe(data, i, j) || parscf(data, i, j)))
 			return (ft_putstr_fd("Error\nErro in texters data\n", 2), 1);

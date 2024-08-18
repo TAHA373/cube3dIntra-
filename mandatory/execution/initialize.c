@@ -6,7 +6,7 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 10:47:03 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/18 15:44:11 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:59:51 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	initialize_cube(t_cube *cube, t_map_data *data, t_player *player)
 		player->rotation_angle = MATH_PI;
 	else
 		player->rotation_angle = 2 * MATH_PI;
-
 	player->x_position = data->x * PIXEL_SIZE + PIXEL_SIZE / 2;
 	player->y_position = data->y * PIXEL_SIZE + PIXEL_SIZE / 2;
 	player->radius = 5;

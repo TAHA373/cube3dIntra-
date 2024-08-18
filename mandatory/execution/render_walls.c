@@ -6,7 +6,7 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 12:03:45 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/18 14:23:59 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:58:38 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,3 @@ void	render_wall(t_ray *ray, t_cube *cube, int i)
 	}
 	draw_floor(cube, i, ray->wall_bottom);
 }
-
-
-
