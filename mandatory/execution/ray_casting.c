@@ -6,7 +6,7 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 10:12:49 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/18 14:26:20 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:57:04 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	get_final_ray_cordonate(t_ray *final_ray, t_ray *ray_v_or_h)
 	final_ray->ray_facing_right = ray_v_or_h->ray_facing_right;
 }
 
-void cast_the_ray(t_cube *cube, float ray_angle, int i)
+void	cast_the_ray(t_cube *cube, float ray_angle, int i)
 {
 	t_ray	ray_horizontal;
 	t_ray	ray_vertical;
@@ -64,4 +64,3 @@ void	cast_rays(t_cube *cube)
 		i++;
 	}
 }
-

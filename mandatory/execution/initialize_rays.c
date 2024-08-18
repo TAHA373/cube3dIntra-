@@ -6,7 +6,7 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 14:09:47 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/18 14:24:17 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:59:34 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ float	ft_periodic(float angle)
 		angle -= (2 * M_PI);
 	return (angle);
 }
-
 
 void	initialize_tray(t_ray *ray, float ray_angle)
 {

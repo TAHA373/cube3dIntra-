@@ -6,12 +6,11 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 11:52:52 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/18 11:59:10 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:59:24 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
 
 int	ft_pixel(int r, int g, int b, int a)
 {
@@ -25,7 +24,6 @@ void	clear_image(mlx_image_t *image)
 
 	x = 0;
 	y = 0;
-
 	while (y < WIN_HEIGHT)
 	{
 		x = 0;
