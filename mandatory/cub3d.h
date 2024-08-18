@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 16:16:43 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/18 16:47:49 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:00:45 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -71,11 +70,11 @@ typedef struct s_map_data
 void	freemap(char **map);
 void	err_exit(char *s);
 int		parsmap(t_map_data *data);
-int	    gettexters(t_map_data *data, char *line, char *dir);
-int     parscolors(t_map_data *data);
-int     parsdirections(t_map_data *data);
-int     parsinfos(t_map_data *data);
-int	    parsmap(t_map_data *data);
+int		gettexters(t_map_data *data, char *line, char *dir);
+int		parscolors(t_map_data *data);
+int		parsdirections(t_map_data *data);
+int		parsinfos(t_map_data *data);
+int		parsmap(t_map_data *data);
 void	ft_parsing(int argc, char **argv, t_map_data *data);
 
 // Player
