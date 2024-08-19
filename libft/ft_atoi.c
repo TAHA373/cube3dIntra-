@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 04:02:27 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/07/25 20:58:26 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/19 23:36:42 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,19 @@ void	ft_sign(const char *str, int *i, int *sign)
 	}
 }
 
+int checklast(char *str)
+{
+	int i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] != ' ' && str[i] != '\t')
+			return (0);
+	}
+	return (1);
+}
+
 int	ft_atoi(const char *str)
 {
 	int		sign;
@@ -45,8 +58,6 @@ int	ft_atoi(const char *str)
 	sign = 1;
 	
 	ft_sign(str, &i, &sign);
-	if (i != 0)
-		return (-1);
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		if (res > 255 && sign == 1)
@@ -54,5 +65,7 @@ int	ft_atoi(const char *str)
 		res = (res * 10) + (str[i] - '0');
 		i++;
 	}
+	if (str[i] != '\0' && !checklast((char*)&str[i]))
+		return (-1);
 	return (sign * res);
 }

@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 01:43:30 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/17 01:46:08 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/19 23:13:31 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,18 @@ int	checkforc(char *line)
 	return (0);
 }
 
+void	rmnewline(char *line)
+{
+	int i;
+
+	i = -1;
+	while (line[++i])
+	{
+		if (line[i] == '\n')
+			line[i] = '\0';
+	}
+}
+
 int	parscolors(t_map_data *data)
 {
 	char	**ccors;
@@ -75,10 +87,14 @@ int	parscolors(t_map_data *data)
 		return (ft_putstr_fd("Error\n in color\n", 2), 1);
 	if (checkforc(data->c_color) || checkforc(data->f_color))
 		return (ft_putstr_fd("Error\n char in color\n", 2), 1);
+	rmnewline(data->f_color);
+	rmnewline(data->c_color);
 	ccors = ft_split(data->c_color, ',');
 	fcors = ft_split(data->f_color, ',');
 	free(data->c_color);
+	data->c_color = NULL;
 	free(data->f_color);
+	data->f_color = NULL;
 	if (checknumbers(fcors, data->farr) || checknumbers(ccors, data->carr))
 		return (ft_putstr_fd("Error\n in numbers\n", 2), 1);
 	return (0);
