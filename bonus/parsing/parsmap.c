@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 01:18:29 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/19 02:16:32 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/19 02:38:38 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	parsspaces(t_map_data *data)
 		{
 			if (parsborders(data, i, j, '0') || parsborders(data, i, j, 'N')
 				|| parsborders(data, i, j, 'E') || parsborders(data, i, j, 'S')
-				|| parsborders(data, i, j, 'W') || parsborders(data, i, j, 'D'))
+				|| parsborders(data, i, j, 'W'))
 				return (1);
 			if (map[i][j] == 'D' && !parsdoor(data, i, j))
 				return (1);
