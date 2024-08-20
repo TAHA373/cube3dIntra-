@@ -6,14 +6,14 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 16:17:04 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/20 17:38:19 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:51:40 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_BONUS_H
 # define CUB3D_BONUS_H
 
-# include "../MLX42/include/MLX42/MLX42.h"
+# include "../MLX42/MLX42.h"
 # include "./parsing/get_next_line.h"
 # include "../libft/libft.h"
 # include <unistd.h>

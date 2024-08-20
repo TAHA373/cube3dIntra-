@@ -6,7 +6,7 @@
 #    By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 21:14:09 by tkannane          #+#    #+#              #
-#    Updated: 2024/08/20 17:32:25 by tkannane         ###   ########.fr        #
+#    Updated: 2024/08/20 17:52:02 by tkannane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,11 +46,11 @@ $(BONUS)/%.o:$(BONUS)/%.c $(BONUS)/cub3d_bonus.h
 
 $(NAME): $(objs)
 		make -C libft
-		$(cmd) $(cflags) $(objs) -o $@ MLX42/build/libmlx42.a -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" libft/libft.a
+		$(cmd) $(cflags) $(objs) -o $@ MLX42/libmlx42.a -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" libft/libft.a
 
 $(BNAME): $(BOBJ)
 		make -C libft
-		$(cmd) $(cflags) $(BOBJ) -o $@ MLX42/build/libmlx42.a -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" libft/libft.a
+		$(cmd) $(cflags) $(BOBJ) -o $@ MLX42/libmlx42.a -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" libft/libft.a
 
 clean:
 		make -C libft clean
