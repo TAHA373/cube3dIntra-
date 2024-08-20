@@ -6,11 +6,11 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 16:15:01 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/18 20:17:10 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/19 02:11:08 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../cub3d_bonus.h"
 
 int	checkfile(char *file, mlx_texture_t **txt)
 {

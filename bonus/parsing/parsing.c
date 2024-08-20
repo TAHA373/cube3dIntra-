@@ -1,28 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_bonus.c                                    :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/04 16:16:28 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/19 02:26:52 by soel-bou         ###   ########.fr       */
+/*   Created: 2024/07/19 23:24:11 by soel-bou          #+#    #+#             */
+/*   Updated: 2024/08/18 17:35:46 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d_bonus.h"
-
-int	parsdoor(t_map_data *data, int i, int j)
-{
-	char	**map;
-
-	map = data->cub_map;
-	if (map[i][j] == 'D' && (map[i][j + 1] == '1' && map[i][j - 1] == '1'))
-		return (1);
-	if (map[i][j] == 'D' && (map[i + 1][j] == '1' && map[i - 1][j] == '1'))
-		return (1);
-	return (0);
-}
+#include "../cub3d.h"
 
 int	get_i(char *file)
 {

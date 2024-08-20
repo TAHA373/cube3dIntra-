@@ -6,7 +6,7 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 16:17:04 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/20 11:18:51 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:38:19 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,18 @@ typedef struct s_map_data
 }	t_map_data;
 
 // Errors
+int		parsdoor(t_map_data *data, int i, int j);
+void	freedata(t_map_data *data);
+int	    gettexters(t_map_data *data, char *line, char *dir);
+int     parscolors(t_map_data *data);
+int     parsdirections(t_map_data *data);
+int     parsinfos(t_map_data *data);
+int	    parsmap(t_map_data *data);
+int	    checkafternewline(char *line);
+int	    parslinemap(char *map);
+char	*getlinemap(char **map);
+char	**findthemap(char **data);
+int	    parsborders(t_map_data *data, int i, int j, char c);
 void	freemap(char **map);
 void	err_exit(char *s);
 int		parsmap(t_map_data *data);
