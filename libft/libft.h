@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 23:08:41 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/15 21:06:47 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:00:25 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_itoa(int n);
 // String length and manipulation functions
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s);
-char	*ft_strjoin(char  *s1,  char *s2);
+char	*ft_strjoin(char *s1, char *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
@@ -64,7 +64,7 @@ typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
-}t_list;
+}	t_list;
 
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
@@ -75,6 +75,6 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+int		ft_strcmp(char *str1, char *str2);
 
-int	ft_strcmp(char *str1, char *str2);
 #endif

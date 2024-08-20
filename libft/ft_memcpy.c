@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 20:53:49 by soel-bou          #+#    #+#             */
-/*   Updated: 2023/11/10 23:37:45 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:06:06 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 		tsrc++;
 		n--;
 	}
-	return (dst); 
+	return (dst);
 }

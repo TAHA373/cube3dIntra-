@@ -6,10 +6,9 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 16:10:01 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/20 17:37:52 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:11:43 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../cub3d_bonus.h"
 
@@ -100,7 +99,6 @@ void	render_wall(t_ray *ray, t_cube *cube, int i)
 		j = (cube->player->offset_x + cube->player->offset_y * PIXEL_SIZE) * 4;
 		get_colors_w_e(ray, cube, j);
 		get_colors_n_s(ray, cube, j);
-		draw_door(ray, cube, j);
 		draw_door(ray, cube, j);
 		mlx_put_pixel(cube->image, i, y, ft_pixel(ray->colors.r, ray->colors.g,
 				ray->colors.b, ray->colors.a * exp(-0.00007 * ray->distance)));

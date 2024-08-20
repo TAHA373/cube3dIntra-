@@ -6,13 +6,13 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 10:12:49 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/18 18:28:24 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:11:32 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d_bonus.h"
 
-void checkhit(t_ray *ray, t_cube *cube)
+void	checkhit(t_ray *ray, t_cube *cube)
 {
 	int	x;
 	int	y;
@@ -42,7 +42,7 @@ int	check_wall2(t_cube *cube, float new_x, float new_y)
 		return (0);
 	if (cube->map[y][x] == '1' || cube->map[y][x] == ' '
 			|| (cube->map[y][x] == 'D'))
-		return (0); 
+		return (0);
 	return (1);
 }
 
@@ -57,6 +57,7 @@ void	get_final_ray_cordonate(t_ray *final_ray, t_ray *ray_v_or_h)
 	final_ray->ray_facing_left = ray_v_or_h->ray_facing_left;
 	final_ray->ray_facing_right = ray_v_or_h->ray_facing_right;
 }
+
 void	cast_the_ray(t_cube *cube, float ray_angle, int i)
 {
 	t_ray	ray_horizontal;
@@ -98,4 +99,3 @@ void	cast_rays(t_cube *cube)
 		i++;
 	}
 }
-

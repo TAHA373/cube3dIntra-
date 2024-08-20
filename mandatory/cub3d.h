@@ -6,7 +6,7 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 16:16:43 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/20 17:54:38 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:57:58 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,16 @@ void	freedata(t_map_data *data);
 void	freemap(char **map);
 void	err_exit(char *s);
 int		parsmap(t_map_data *data);
-int	    gettexters(t_map_data *data, char *line, char *dir);
-int     parscolors(t_map_data *data);
-int     parsdirections(t_map_data *data);
-int     parsinfos(t_map_data *data);
-int	    parsmap(t_map_data *data);
-int	    checkafternewline(char *line);
-int	    parslinemap(char *map);
+int		gettexters(t_map_data *data, char *line, char *dir);
+int		parscolors(t_map_data *data);
+int		parsdirections(t_map_data *data);
+int		parsinfos(t_map_data *data);
+int		parsmap(t_map_data *data);
+int		checkafternewline(char *line);
+int		parslinemap(char *map);
 char	*getlinemap(char **map);
 char	**findthemap(char **data);
-int	    parsborders(t_map_data *data, int i, int j, char c);
+int		parsborders(t_map_data *data, int i, int j, char c);
 void	ft_parsing(int argc, char **argv, t_map_data *data);
 
 // Player

@@ -6,7 +6,7 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:36:38 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/18 18:20:08 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:09:57 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	clear_image(mlx_image_t *image)
 
 	x = 0;
 	y = 0;
-
 	while (y < WIN_HEIGHT)
 	{
 		x = 0;

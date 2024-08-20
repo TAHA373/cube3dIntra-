@@ -6,7 +6,7 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:14:32 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/20 11:15:04 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:08:23 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,9 @@ void	clear_img_mini(mlx_image_t *image)
 		}
 		y++;
 	}
+}
+
+void	put_the_pixel(t_cube *cube, int colors)
+{
+	mlx_put_pixel(cube->mini_map, cube->mini_x, cube->mini_y, colors);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 22:10:14 by soel-bou          #+#    #+#             */
-/*   Updated: 2023/11/15 16:38:35 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:06:52 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 		ft_memcpy(&dst[dlen], src, slen + 1);
 	else
 	{
-		ft_memcpy(&dst[dlen], src, dstsize - dlen - 1); 
+		ft_memcpy(&dst[dlen], src, dstsize - dlen - 1);
 		dst[dstsize - 1] = '\0';
 	}
 	return (dlen + slen);

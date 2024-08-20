@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parscolors.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 01:43:30 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/19 23:13:31 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:59:16 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	checkforc(char *line)
 
 void	rmnewline(char *line)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (line[++i])

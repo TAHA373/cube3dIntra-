@@ -6,7 +6,7 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 04:02:27 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/20 17:34:07 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:05:54 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_isspace(int num)
 {
-	if (num == '\t' || num == '\n' || num == '\r' 
+	if (num == '\t' || num == '\n' || num == '\r'
 		|| num == '\f' || num == '\v' || num == ' ')
 		return (1);
 	else
@@ -34,9 +34,9 @@ void	ft_sign(const char *str, int *i, int *sign)
 	}
 }
 
-int checklast(char *str)
+int	checklast(char *str)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (str[++i])

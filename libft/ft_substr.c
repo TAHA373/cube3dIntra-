@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:32:09 by soel-bou          #+#    #+#             */
-/*   Updated: 2023/11/11 23:43:41 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:00:56 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	while (s[start + i] && i < len)
 	{
 		str[i] = s[start + i];
-		i++; 
+		i++;
 	}
 	str[len] = '\0';
 	return (str);

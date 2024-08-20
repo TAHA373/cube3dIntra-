@@ -6,7 +6,7 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 01:43:30 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/20 17:42:14 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:10:22 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	checkforc(char *line)
 
 void	rmnewline(char *line)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (line[++i])

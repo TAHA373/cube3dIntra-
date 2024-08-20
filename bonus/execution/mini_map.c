@@ -6,7 +6,7 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:38:42 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/20 15:22:07 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:09:45 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,6 @@ int	ft_check(float distance_to_center, int radius)
 	return (0);
 }
 
-void put_the_pixel(t_cube *cube, int colors)
-{
-	mlx_put_pixel(cube->mini_map, cube->mini_x,cube->mini_y, colors);
-}
-
 void	mini_map(t_cube *cube)
 {
 	int		radius;
@@ -86,4 +81,3 @@ void	mini_map(t_cube *cube)
 		cube->mini_y_p++;
 	}
 }
-

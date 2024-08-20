@@ -6,7 +6,7 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:36:22 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/18 18:30:45 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:12:34 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	check_for_h(t_ray *ray, float x_intercept, float y_intercept,
 	}
 	get_distance(ray, hit_wall, cube);
 }
-
 
 void	check_for_v(t_ray *ray, float x_intercept, float y_intercept,
 		t_cube *cube)
@@ -106,7 +105,6 @@ void	horizontal_ray(t_ray *ray, float ray_angle, t_cube *cube)
 		ray->x_step *= -1;
 	else if (ray->ray_facing_right && ray->x_step < 0)
 		ray->x_step *= -1;
-
 	check_for_h(ray, x_intercept, y_intercept, cube);
 }
 /*VERTICAL RAY INTERSECTION CODE */

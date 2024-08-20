@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:13:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/17 01:02:28 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:04:48 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	openthenooor(t_cube *data)
 		data->map[y][x] = 'D';
 	}
 }
-
 
 mlx_image_t	*get_frame(t_cube *data, char *type, int i)
 {

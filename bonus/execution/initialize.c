@@ -6,7 +6,7 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:36:08 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/20 15:20:49 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:20:29 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,12 @@ void	initialize_image(t_cube *cube)
 	cube->door_x = -1;
 	cube->door_y = -1;
 	cube->south = mlx_texture_to_image(cube->mlx_win, cube->data->south);
+	mlx_resize_image(cube->south, PIXEL_SIZE, PIXEL_SIZE);
 	cube->east = mlx_texture_to_image(cube->mlx_win, cube->data->east);
+	mlx_resize_image(cube->east, PIXEL_SIZE, PIXEL_SIZE);
 	cube->west = mlx_texture_to_image(cube->mlx_win, cube->data->west);
+	mlx_resize_image(cube->west, PIXEL_SIZE, PIXEL_SIZE);
 	cube->north = mlx_texture_to_image(cube->mlx_win, cube->data->north);
+	mlx_resize_image(cube->north, PIXEL_SIZE, PIXEL_SIZE);
 	textures_delete(cube);
 }

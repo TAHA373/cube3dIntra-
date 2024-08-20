@@ -6,7 +6,7 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 16:17:04 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/20 17:54:45 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:08:31 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,16 @@ typedef struct s_map_data
 // Errors
 int		parsdoor(t_map_data *data, int i, int j);
 void	freedata(t_map_data *data);
-int	    gettexters(t_map_data *data, char *line, char *dir);
-int     parscolors(t_map_data *data);
-int     parsdirections(t_map_data *data);
-int     parsinfos(t_map_data *data);
-int	    parsmap(t_map_data *data);
-int	    checkafternewline(char *line);
-int	    parslinemap(char *map);
+int		gettexters(t_map_data *data, char *line, char *dir);
+int		parscolors(t_map_data *data);
+int		parsdirections(t_map_data *data);
+int		parsinfos(t_map_data *data);
+int		parsmap(t_map_data *data);
+int		checkafternewline(char *line);
+int		parslinemap(char *map);
 char	*getlinemap(char **map);
 char	**findthemap(char **data);
-int	    parsborders(t_map_data *data, int i, int j, char c);
+int		parsborders(t_map_data *data, int i, int j, char c);
 void	freemap(char **map);
 void	err_exit(char *s);
 int		parsmap(t_map_data *data);
@@ -216,4 +216,5 @@ void	clear_img_mini(mlx_image_t *image);
 void	mini_map(t_cube *cube);
 int		check_wall2(t_cube *cube, float new_x, float new_y);
 void	ft_mouse(t_cube *data);
+void	put_the_pixel(t_cube *cube, int colors);
 #endif

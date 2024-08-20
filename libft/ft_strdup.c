@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:16:23 by soel-bou          #+#    #+#             */
-/*   Updated: 2023/11/15 16:53:26 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:06:28 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ char	*ft_strdup(const char *s1)
 		i++;
 		str++;
 	}
-	cpy[len] = '\0'; 
+	cpy[len] = '\0';
 	return (cpy);
 }
