@@ -6,7 +6,7 @@
 #    By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 21:14:09 by tkannane          #+#    #+#              #
-#    Updated: 2024/08/18 18:40:21 by tkannane         ###   ########.fr        #
+#    Updated: 2024/08/20 11:15:35 by tkannane         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ objs = $(sources:.c=.o)
 BSRC =	 ./bonus/parsing/parsing_bonus.c ./bonus/parsing/get_next_line.c ./bonus/parsing/get_next_line_utils.c\
 		bonus/execution/initialize_rays.c bonus/execution/initialize.c bonus/execution/key_press.c bonus/execution/main.c\
 		bonus/execution/mini_map.c bonus/execution/player_place.c bonus/execution/ray_casting_helper.c bonus/execution/ray_casting.c\
-		bonus/execution/render_walls_helper.c bonus/execution/render_walls.c bonus/execution/texture_image.c bonus/animation.c bonus/mouse.c
+		bonus/execution/render_walls_helper.c bonus/execution/render_walls.c bonus/execution/texture_image.c bonus/animation.c bonus/mouse.c\
+		bonus/execution/mini_map_helper.c
 BOBJ = $(BSRC:.c=.o)
 NAME = cub3D
 BNAME = cub3D_bonus

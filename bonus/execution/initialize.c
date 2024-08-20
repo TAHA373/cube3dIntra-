@@ -6,7 +6,7 @@
 /*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:36:08 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/18 18:21:50 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:20:49 by tkannane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	initialize_cube(t_cube *cube, t_map_data *data, t_player *player)
 		player->rotation_angle = MATH_PI;
 	else
 		player->rotation_angle = 2 * MATH_PI;
-
 	player->x_position = data->x * PIXEL_SIZE + PIXEL_SIZE / 2;
 	player->y_position = data->y * PIXEL_SIZE + PIXEL_SIZE / 2;
 	player->radius = 5;
@@ -72,7 +71,7 @@ void	initialize_cube(t_cube *cube, t_map_data *data, t_player *player)
 
 int	mlx_initialize(t_cube *cube)
 {
-	cube->mlx_win = mlx_init(WIN_WIDTH, WIN_HEIGHT, "Cube3D", false);
+	cube->mlx_win = mlx_init(WIN_WIDTH, WIN_HEIGHT, "Cub3D", false);
 	if (!(cube->mlx_win))
 		return (puts(mlx_strerror(mlx_errno)), EXIT_FAILURE);
 	cube->image = mlx_new_image(cube->mlx_win, WIN_WIDTH, WIN_HEIGHT);
