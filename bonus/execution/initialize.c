@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:36:08 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/21 21:46:58 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:12:50 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	mlx_initialize(t_cube *cube)
 
 int	initialize_image(t_cube *cube)
 {
-	cube->t_door = mlx_load_png("d.png");
+	cube->t_door = mlx_load_png("texts/d.png");
 	if (!cube->t_door)
 		return (textures_delete(cube), 1);
 	cube->i_door = mlx_texture_to_image(cube->mlx_win, cube->t_door);
