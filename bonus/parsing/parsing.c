@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 23:24:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/18 17:35:46 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/22 01:25:19 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	parsargs(int argc, char **argv)
 
 	i = 0;
 	if (argc != 2)
-		return (1);
+		return (ft_putstr_fd("Error\nINVALID ARGS!\n", 2), 1);
 	if (ft_strlen(argv[1]) <= 4)
 		return (ft_putstr_fd("Error\nINVALID FILE NAME!\n", 2), 1);
 	while (argv[1][i])
