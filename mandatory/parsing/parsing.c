@@ -6,7 +6,7 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 23:24:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/22 01:25:40 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/22 01:39:41 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ int	set_data(t_map_data *data, char *file)
 			break ;
 		data->map[i++] = ft_strdup(line);
 		if (!data->map[i - 1])
-			return (free(line), freemap(data->map), 1);
+			return (free(line), freemap(data->map), close(fd), 1);
 		free(line);
 	}
-	return (data->map[i] = NULL, 0);
+	return (data->map[i] = NULL, close(fd), 0);
 }
 
 int	parsargs(int argc, char **argv)
