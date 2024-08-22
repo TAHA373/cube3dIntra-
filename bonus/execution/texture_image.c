@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_image.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:36:38 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/20 18:09:57 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:29:02 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	textures_delete(t_cube *cube)
 
 void	image_delete(t_cube *cube)
 {
+	if (cube->i_door)
+		mlx_delete_image(cube->mlx_win, cube->i_door);
 	if (cube->south)
 		mlx_delete_image(cube->mlx_win, cube->south);
 	if (cube->east)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 10:47:03 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/20 18:21:48 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/21 21:44:53 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,15 +93,19 @@ int	mlx_initialize(t_cube *cube)
 	return (EXIT_SUCCESS);
 }
 
-void	initialize_image(t_cube *cube)
+int	initialize_image(t_cube *cube)
 {
 	cube->south = mlx_texture_to_image(cube->mlx_win, cube->data->south);
-	mlx_resize_image(cube->south, PIXEL_SIZE, PIXEL_SIZE);
 	cube->east = mlx_texture_to_image(cube->mlx_win, cube->data->east);
-	mlx_resize_image(cube->east, PIXEL_SIZE, PIXEL_SIZE);
 	cube->west = mlx_texture_to_image(cube->mlx_win, cube->data->west);
-	mlx_resize_image(cube->west, PIXEL_SIZE, PIXEL_SIZE);
 	cube->north = mlx_texture_to_image(cube->mlx_win, cube->data->north);
-	mlx_resize_image(cube->north, PIXEL_SIZE, PIXEL_SIZE);
 	textures_delete(cube);
+	if (!cube->south || !cube->east || !cube->north || !cube->west)
+		return (image_delete(cube), 1);
+	if (!mlx_resize_image(cube->south, PIXEL_SIZE, PIXEL_SIZE)
+		|| !mlx_resize_image(cube->east, PIXEL_SIZE, PIXEL_SIZE)
+		|| !mlx_resize_image(cube->west, PIXEL_SIZE, PIXEL_SIZE)
+		|| !mlx_resize_image(cube->north, PIXEL_SIZE, PIXEL_SIZE))
+		return (image_delete(cube), 1);
+	return (0);
 }

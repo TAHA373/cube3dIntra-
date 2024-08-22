@@ -6,15 +6,16 @@
 /*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:08:46 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/19 02:10:43 by soel-bou         ###   ########.fr       */
+/*   Updated: 2024/08/21 22:17:49 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d_bonus.h"
 
-void	err_exit(char *s)
+void	err_exit(t_cube *data)
 {
-	ft_putstr_fd(s, 2);
+	ft_putstr_fd("Error\n", 2);
+	freemap(data->data->cub_map);
 	exit(1);
 }
 

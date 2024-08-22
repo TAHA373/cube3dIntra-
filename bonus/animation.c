@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animation.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:13:11 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/20 18:04:48 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/21 22:06:34 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	openthenooor(t_cube *data)
 		y = player_y;
 		data->map[player_y][player_x] = 'C';
 	}
-	else if (player_y != y || player_x != x)
+	else if ((player_y != y || player_x != x) && (y != 0 && x != 0))
 	{
 		data->map[y][x] = 'D';
 	}
@@ -37,6 +37,7 @@ mlx_image_t	*get_frame(t_cube *data, char *type, int i)
 {
 	char			src[20];
 	mlx_texture_t	*txt;
+	mlx_image_t		*frame;
 	char			*num;
 
 	if (data->frame)
@@ -49,8 +50,12 @@ mlx_image_t	*get_frame(t_cube *data, char *type, int i)
 	ft_strlcat(src, ".png", sizeof(src));
 	txt = mlx_load_png(src);
 	if (!txt)
-		return (NULL);
-	return (mlx_texture_to_image(data->mlx_win, txt));
+		err_exit(data);
+	frame = mlx_texture_to_image(data->mlx_win, txt);
+	mlx_delete_texture(txt);
+	if (!frame)
+		err_exit(data);
+	return (frame);
 }
 
 void	hold_gun(t_cube *data)
@@ -85,8 +90,6 @@ void	hold_gun(t_cube *data)
 void	gun_shots(t_cube *data, bool *shooting, int *sframe)
 {
 	data->frame = get_frame(data, "shoot/", (*sframe) + 8);
-	if (!data->frame)
-		return ;
 	mlx_image_to_window(data->mlx_win, data->frame, 0, 0);
 	(*sframe)++;
 	if (*sframe == 15)
@@ -103,6 +106,17 @@ void	animation(void *input)
 	static int	sframe;
 
 	data = (t_cube *)input;
+	if (mlx_is_key_down(data->mlx_win, MLX_KEY_LEFT_CONTROL))
+	{
+		if (data->mouse_state == ON)
+			data->mouse_state = OFF;
+		else if (data->mouse_state == OFF)
+			data->mouse_state = ON;
+	}
+	if (data->mouse_state == ON)
+		mlx_set_cursor_mode(data->mlx_win, MLX_MOUSE_HIDDEN);
+	else if (data->mouse_state == OFF)
+		mlx_set_cursor_mode(data->mlx_win, MLX_MOUSE_NORMAL);
 	openthenooor(data);
 	ft_mouse(data);
 	if (mlx_is_mouse_down(data->mlx_win, 0) && sframe == 0)

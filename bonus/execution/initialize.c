@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:36:08 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/20 18:20:29 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/21 21:46:58 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,20 +97,25 @@ int	mlx_initialize(t_cube *cube)
 	return (EXIT_SUCCESS);
 }
 
-void	initialize_image(t_cube *cube)
+int	initialize_image(t_cube *cube)
 {
 	cube->t_door = mlx_load_png("d.png");
+	if (!cube->t_door)
+		return (textures_delete(cube), 1);
 	cube->i_door = mlx_texture_to_image(cube->mlx_win, cube->t_door);
-	cube->isfacingdoor = false;
-	cube->door_x = -1;
-	cube->door_y = -1;
 	cube->south = mlx_texture_to_image(cube->mlx_win, cube->data->south);
-	mlx_resize_image(cube->south, PIXEL_SIZE, PIXEL_SIZE);
 	cube->east = mlx_texture_to_image(cube->mlx_win, cube->data->east);
-	mlx_resize_image(cube->east, PIXEL_SIZE, PIXEL_SIZE);
 	cube->west = mlx_texture_to_image(cube->mlx_win, cube->data->west);
-	mlx_resize_image(cube->west, PIXEL_SIZE, PIXEL_SIZE);
 	cube->north = mlx_texture_to_image(cube->mlx_win, cube->data->north);
-	mlx_resize_image(cube->north, PIXEL_SIZE, PIXEL_SIZE);
 	textures_delete(cube);
+	if (!cube->i_door || !cube->south || !cube->east
+		|| !cube->north || !cube->west)
+		return (image_delete(cube), 1);
+	if (!mlx_resize_image(cube->south, PIXEL_SIZE, PIXEL_SIZE)
+		|| !mlx_resize_image(cube->east, PIXEL_SIZE, PIXEL_SIZE)
+		|| !mlx_resize_image(cube->west, PIXEL_SIZE, PIXEL_SIZE)
+		|| !mlx_resize_image(cube->i_door, PIXEL_SIZE, PIXEL_SIZE)
+		|| !mlx_resize_image(cube->north, PIXEL_SIZE, PIXEL_SIZE))
+		return (image_delete(cube), 1);
+	return (0);
 }

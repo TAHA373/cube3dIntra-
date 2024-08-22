@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parscolors.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 01:43:30 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/20 18:10:22 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/22 01:08:18 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int	parscolors(t_map_data *data)
 	free(data->f_color);
 	data->f_color = NULL;
 	if (checknumbers(fcors, data->farr) || checknumbers(ccors, data->carr))
-		return (ft_putstr_fd("Error\n in numbers\n", 2), 1);
+		return (checknumbers(ccors, data->carr),
+			ft_putstr_fd("Error\n in numbers\n", 2), 1);
 	return (0);
 }

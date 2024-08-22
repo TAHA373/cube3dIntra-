@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 16:17:04 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/20 18:08:31 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/21 23:20:42 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <stdio.h>
 # include <math.h>
 # include <limits.h>
-
 # define PIXEL_SIZE 1024
 # define WIN_WIDTH 1900
 # define WIN_HEIGHT 1080
@@ -80,7 +79,6 @@ char	*getlinemap(char **map);
 char	**findthemap(char **data);
 int		parsborders(t_map_data *data, int i, int j, char c);
 void	freemap(char **map);
-void	err_exit(char *s);
 int		parsmap(t_map_data *data);
 void	ft_parsing(int argc, char **argv, t_map_data *data);
 
@@ -119,6 +117,13 @@ typedef struct s_mini_map
 	int		y;
 }	t_mini_map;
 // Cube
+
+typedef enum mouse
+{
+	ON,
+	OFF
+}	t_mouse;
+
 typedef struct s_cube
 {
 	t_player		*player;
@@ -149,6 +154,7 @@ typedef struct s_cube
 	int				mini_y;
 	int				mini_x_p;
 	int				mini_y_p;
+	t_mouse			mouse_state;
 }	t_cube;
 
 // Ray
@@ -189,7 +195,7 @@ void	update_player_place(t_cube *cube);
 void	update_player_place_right(t_cube *cube);
 void	update_player_place_left(t_cube *cube);
 int		mlx_initialize(t_cube *cube);
-void	initialize_image(t_cube *cube);
+int		initialize_image(t_cube *cube);
 void	clear_image(mlx_image_t *image);
 void	key_press(void *param);
 void	ft_release(t_cube *cube);
@@ -217,4 +223,5 @@ void	mini_map(t_cube *cube);
 int		check_wall2(t_cube *cube, float new_x, float new_y);
 void	ft_mouse(t_cube *data);
 void	put_the_pixel(t_cube *cube, int colors);
+void	err_exit(t_cube *data);
 #endif

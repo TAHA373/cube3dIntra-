@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_image.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 11:52:52 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/18 16:59:24 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/22 01:08:35 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,24 @@ void	textures_delete(t_cube *cube)
 
 void	image_delete(t_cube *cube)
 {
-	if (cube->south)
+	if (cube->south && cube->mlx_win)
+	{
 		mlx_delete_image(cube->mlx_win, cube->south);
-	if (cube->east)
+		cube->south = NULL;
+	}
+	if (cube->east && cube->mlx_win)
+	{
 		mlx_delete_image(cube->mlx_win, cube->east);
-	if (cube->west)
+		cube->east = NULL;
+	}
+	if (cube->west && cube->mlx_win)
+	{
 		mlx_delete_image(cube->mlx_win, cube->west);
-	if (cube->north)
+		cube->west = NULL;
+	}
+	if (cube->north && cube->mlx_win)
+	{
 		mlx_delete_image(cube->mlx_win, cube->north);
+		cube->north = NULL;
+	}
 }

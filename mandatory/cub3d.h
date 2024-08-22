@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 16:16:43 by soel-bou          #+#    #+#             */
-/*   Updated: 2024/08/20 17:57:58 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:49:55 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ void	update_player_place(t_cube *cube);
 void	update_player_place_right(t_cube *cube);
 void	update_player_place_left(t_cube *cube);
 int		mlx_initialize(t_cube *cube);
-void	initialize_image(t_cube *cube);
+int		initialize_image(t_cube *cube);
 void	clear_image(mlx_image_t *image);
 void	key_press(void *param);
 void	ft_release(t_cube *cube);

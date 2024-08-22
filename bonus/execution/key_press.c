@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_press.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkannane <tkannane@student.42.fr>          +#+  +:+       +#+        */
+/*   By: soel-bou <soel-bou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 15:36:12 by tkannane          #+#    #+#             */
-/*   Updated: 2024/08/18 18:35:45 by tkannane         ###   ########.fr       */
+/*   Updated: 2024/08/21 20:36:36 by soel-bou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	key_press(void *param)
 		cube->player->b_f_directions = 1;
 		update_player_place(cube);
 	}
-	if (mlx_is_key_down(cube->mlx_win, MLX_KEY_DOWN))
+	if (mlx_is_key_down(cube->mlx_win, MLX_KEY_DOWN)
+		|| mlx_is_key_down(cube->mlx_win, MLX_KEY_S))
 	{
 		cube->player->b_f_directions = -1;
 		update_player_place(cube);
